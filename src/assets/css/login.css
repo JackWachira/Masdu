@@ -1,0 +1,15 @@
+@font-face {
+    font-family: login_font;
+    src: url(assets/fonts/proxima-reg.otf);
+}
+span {
+    font-family: login_font;
+}
+.space {
+  flex: 1 1 auto;
+}
+.container{
+    width: 500px;
+    float:left;
+    margin-top: 50px;
+}
