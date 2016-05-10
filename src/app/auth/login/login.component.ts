@@ -19,8 +19,9 @@ export class LoginComponent implements OnInit{
     ngOnInit(){
     }
     showSignUp(){
+        console.log("signup clicked");
         this.loginChange.emit({
-              value: false
+            value: false
             })
     }
 }
