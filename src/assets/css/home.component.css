@@ -1,0 +1,60 @@
+img{
+  width:100%;
+  max-width: 100%;
+  height:auto;
+
+}
+#size-banner{
+    /*height:580px;*/
+    padding-top:60px;
+}
+header .display-2 {
+    font-size: 350%;
+    line-height:1;
+    font-weight:300;
+}
+.banner-tag-line {
+    font-size:150%;
+    line-height:1.4;
+    font-weight:300;
+    font-family: 'Bad Script', cursive;
+
+}
+
+.btn-banner {
+  font-weight: 600;
+  color: #002157;
+  border-color: #002157;
+  margin-right: 10px;
+}
+.main{
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+  display: flex;
+    align-items: center;
+}
+
+/* ---------------------- PARALLAX --------------------------------------*/
+.col-md-12 #inner {
+    text-align:center;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:fixed!important;
+    overflow:hidden;
+    /* Set rules to fill background */
+      min-height: 100%;
+
+      /* Set up proportionate scaling */
+      width: 100%;
+      height: auto;
+
+      /* Set up positioning */
+      position: fixed;
+      top: 0;
+      left: 0;
+}
+
+.login{
+  float: left;
+}

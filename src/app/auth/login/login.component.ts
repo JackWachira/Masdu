@@ -1,5 +1,5 @@
-import {Component, ElementRef} from 'angular2/core';
-import {AuthenticationService, User} from '../auth.service'
+import {Component, ElementRef, OnInit,Input, Output, EventEmitter} from 'angular2/core';
+import {AuthenticationService, User} from '../auth.service';
 
 @Component({
     selector: 'login-form',
@@ -8,17 +8,19 @@ import {AuthenticationService, User} from '../auth.service'
     styleUrls: ['assets/css/login.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
     public user = new User('','');
     public errorMsg = '';
-
+    @Output() loginChange = new EventEmitter();
     constructor(
-        private _service:AuthenticationService) {}
+        private _service:AuthenticationService){}
 
-    login() {
-        if(!this._service.login(this.user)){
-            this.errorMsg = 'Failed to login';
-        }
+    ngOnInit(){
+    }
+    showSignUp(){
+        this.loginChange.emit({
+              value: false
+            })
     }
 }

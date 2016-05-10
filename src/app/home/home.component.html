@@ -1,7 +1,16 @@
-<div class="container" >
-    <div class="content">
-        <span>Congratulations, you have successfully logged in!!</span>
-        <br />
-        <a (click)="logout()" href="#">Click Here to logout</a>
+<div class="container main">
+    <div class="col-md-12 col-sm-12">
+        <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <div class="col-md-12" id="inner" style="background-image: url(assets/img/bucket_list.jpg);">
+            <div class="container text-center" id="size-banner">
+                <div class="login" *ngIf="login">
+                    <login-form (loginChange)="myValueChange($event);"></login-form>
+                </div>
+
+                <img src="assets/img/musdo_logo.png" alt="Musdo" style="width:304px;height:228px;">
+                <h3 class="banner-tag-line">"Life is a one time offer, use it <b>well</b>"</h3>
+            </div>
+        </div>
+
     </div>
 </div>

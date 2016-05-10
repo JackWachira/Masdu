@@ -10,7 +10,7 @@ import { Router } from 'angular2/router';
     directives: [LoginComponent],
     templateUrl: 'app/landing/landing.component.html',
     styleUrls: ['assets/css/landing.css']
-}),
+})
 
 export class LandingComponent {
     openPage: string;
@@ -30,4 +30,4 @@ export class LandingComponent {
         console.log("signup")
     }
 }
-}
+

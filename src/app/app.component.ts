@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {LoginComponent} from './auth/login/login.component';
-import {PrivateComponent} from './home/home.component';
+import {HomeComponent} from './home/home.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import {LandingComponent} from './landing/landing.component';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
@@ -12,12 +12,16 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
     styleUrls: ['assets/css/app.component.css'],
 })
 @RouteConfig([
-    { path: '/home', name: 'Home', component: PrivateComponent },
+    {
+      path: '/home',
+      name: 'Home',
+      component: HomeComponent,
+      useAsDefault: true
+    },
     {
       path: '/login',
       name: 'Login',
       component: LoginComponent,
-      useAsDefault: true
     },
     {
       path: '/signup',

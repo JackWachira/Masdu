@@ -4,7 +4,7 @@ import {AuthenticationService, User} from '../auth.service';
 @Component({
     selector: 'login-form',
     providers: [AuthenticationService],
-    templateUrl: 'app/auth/login/login.component.html',
+    templateUrl: 'app/auth/signup/signup.component.html',
     styleUrls: ['assets/css/login.css']
 })
 
