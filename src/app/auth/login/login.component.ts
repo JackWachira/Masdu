@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit,Input, Output, EventEmitter} from 'angular2/core';
 import {AuthenticationService} from '../auth.service';
-import { User }    from './user';
+import { User }    from '../user';
 
 @Component({
     selector: 'login-form',
