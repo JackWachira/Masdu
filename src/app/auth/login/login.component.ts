@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit{
     public errorMsg = '';
     @Output() loginChange = new EventEmitter();
 
-    model = new User(1, "jackmwa94@gmail.com","passw", "Jack", "Mwangi")
+    model = new User(1, "jackmwa94@gmail.com","passw", "Jack")
 
     submitted = false;
     onSubmit() {

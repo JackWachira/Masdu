@@ -6,8 +6,10 @@
         </div>
         <div class="panel-body">
             <form id="signupform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit()" #signupForm="ngForm">
-                <div id="signupalert" style="display:none" class="alert alert-danger">
-                    <p>Error:</p>
+                <div [hidden]="correct" id="signupalert" class="alert alert-danger">
+                    <div *ngFor='let error of arrayOfKeys'>
+                        <p>{{userobj[error]}}</p>
+                    </div>
                     <span></span>
                 </div>
                 <div class="form-group">
@@ -18,12 +20,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstname" class="control-label">First Name</label>
-                    <input type="text" class="form-control" name="firstname" placeholder="First Name" [(ngModel)]="model.first_name" #firstname="ngForm">
-                </div>
-                <div class="form-group">
-                    <label for="lastname" class="control-label">Last Name</label>
-                    <input type="text" class="form-control" name="lastname" placeholder="Last Name" [(ngModel)]="model.last_name" #lastname="ngForm">
+                    <label for="username" class="control-label">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username" required [(ngModel)]="model.username" #username="ngForm">
                 </div>
                 <div class="form-group">
                     <label for="password" class="control-label">Password</label>

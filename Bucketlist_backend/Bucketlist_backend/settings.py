@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'registration',
+    'corsheaders'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,7 +54,12 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'PAGE_SIZE': 10
@@ -76,6 +83,14 @@ TEMPLATES = [
     },
 ]
 
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window;
+REGISTRATION_AUTO_LOGIN = True  # the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/home/'  # The page to arrive at after they successful log in
+# The page users are directed to if they are not logged in,and are trying
+# to access pages requiring authentication
+LOGIN_URL = '/accounts/login/'
+
 WSGI_APPLICATION = 'Bucketlist_backend.wsgi.application'
 
 
@@ -88,7 +103,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 
 # Password validation
