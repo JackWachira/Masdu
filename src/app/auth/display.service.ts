@@ -6,22 +6,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class DisplayService {
 
-  private display: boolean=true;
+  public static showregister: boolean=true;
 
-  // stream1$ = new Observable(observer => {
-  //     observer.next(this.display);
-  // });
-
-  nameChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  login() {
-    this.display = true;
+  setregister() {
+      DisplayService.showregister = false;
   }
-  signup() {
-    this.display = false;
-    this.nameChange.emit(this.display);
-  }
-  getvalue(){
-      return this.display;
+  getregister(){
+      return DisplayService.showregister;
+
   }
 }

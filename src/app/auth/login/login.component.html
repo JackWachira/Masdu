@@ -1,4 +1,7 @@
-<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
+<div id="loginbox" style="" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
+    <div [hidden]="register_success" class="alert alert-info">
+        <a href="#" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
+    </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">Sign In</div>

@@ -1,11 +1,12 @@
 import {Component, ElementRef, Input, Output, EventEmitter} from 'angular2/core';
 import {AuthenticationService} from '../auth.service';
+import {DisplayService} from '../display.service';
 import { User }    from '../user';
 import { Http, Headers, HTTP_PROVIDERS } from 'angular2/http';
 
 @Component({
     selector: 'register-form',
-    providers: [AuthenticationService],
+    providers: [AuthenticationService, DisplayService],
     templateUrl: 'app/auth/signup/signup.component.html',
     styleUrls: ['assets/css/login.css']
 })
@@ -14,8 +15,9 @@ export class SignUpComponent {
 
     public errorMsg = '';
     @Output() signupChange = new EventEmitter();
+
     constructor(
-        private _service:AuthenticationService, public http: Http) {}
+        private _service:AuthenticationService, public http: Http, private _displservice:DisplayService) {}
 
     model = new User(1, "jackmwa94@gmail.com","passw", "Jack")
     submitted = false;
@@ -50,20 +52,14 @@ export class SignUpComponent {
         this.correct = false;
         this.userobj= JSON.parse(err["_body"]);
         this.arrayOfKeys = Object.keys(this.userobj);
-        // for (let key in userobj) {
-        //    this.arrayOfKeys = Object.keys(this.dataObject);
-        //    // this.errormsgs = userobj[key] ;
-        // }
-
-
-
-        // for (var key in err["_body"]) {
-        //     console.log(key);
-        //     // console.log('There was an error: ' + err["_body"][key]);
-        // }
     }
     saveJwt(data){
         console.log(data)
+        this._displservice.setregister();
+        this.signupChange.emit({
+            value: true
+            })
+
     }
 
     active = true;

@@ -12,10 +12,14 @@ import {SignUpComponent} from '../auth/signup/signup.component';
 })
 export class HomeComponent implements OnInit{
     login: boolean = true;
+    register_success: boolean= false;
 
     myValueChange($event) {
         this.login = $event['value'];
         console.log(this.login);
+      }
+    registerTrigger($event) {
+        this.register_success = $event['value'];
       }
 
     constructor(

@@ -1,18 +1,20 @@
 import {Component, ElementRef, OnInit,Input, Output, EventEmitter} from 'angular2/core';
 import {AuthenticationService} from '../auth.service';
+import {DisplayService} from '../display.service';
 import { User }    from '../user';
 
 @Component({
     selector: 'login-form',
-    providers: [AuthenticationService],
+    providers: [AuthenticationService, DisplayService],
     templateUrl: 'app/auth/login/login.component.html',
-    styleUrls: ['assets/css/login.css']
+    styleUrls: ['assets/css/login.css'],
 })
 
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
     public errorMsg = '';
     @Output() loginChange = new EventEmitter();
+    @Input() register_success: boolean = false;
 
     model = new User(1, "jackmwa94@gmail.com","passw", "Jack")
 
@@ -22,10 +24,13 @@ export class LoginComponent implements OnInit{
         let email = this.model.email;
         let password = this.model.password;
     }
-
+    closealert(){
+        this.register_success = true;
+    }
     active = true;
     constructor(
-        private _service:AuthenticationService){}
+        private _service: AuthenticationService, private evt: DisplayService) {
+    }
 
     newUser() {
         this.model = new User(1, "", "", "");
@@ -34,9 +39,9 @@ export class LoginComponent implements OnInit{
     }
 
     ngOnInit(){
+        this.register_success = this.evt.getregister();
     }
     showSignUp(){
-        console.log("signup clicked");
         this.loginChange.emit({
             value: false
             })
