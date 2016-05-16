@@ -103,7 +103,19 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthentication']
 
+###############################
+"""   DUAL AUTHENTICATION  """
+###############################
+
+# Options: username, email, both
+# Default: both
+AUTHENTICATION_METHOD = 'both'
+
+# Options: username, email, both, none
+# Default: both
+AUTHENTICATION_CASE_SENSITIVE = 'both'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

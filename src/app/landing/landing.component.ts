@@ -1,33 +1,38 @@
-import {Component, ElementRef} from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
-import { LoginComponent } from '../auth/login/login.component';
-import { SignUpComponent } from '../auth/signup/signup.component';
-import { Router } from 'angular2/router';
+import {Component, OnInit} from 'angular2/core';
+import {AuthenticationService} from '../auth/auth.service';
+import {LoginComponent} from '../auth/login/login.component';
+import {SignUpComponent} from '../auth/signup/signup.component';
+import { RouteParams, Router } from '@angular/router-deprecated';
+
 
 @Component({
     selector: 'landing-page',
-    providers: [],
-    directives: [LoginComponent],
+    providers: [AuthenticationService],
+    directives: [LoginComponent,SignUpComponent],
     templateUrl: 'app/landing/landing.component.html',
-    styleUrls: ['assets/css/landing.css']
+    styleUrls: ['assets/css/landing.component.css'],
 })
+export class LandingComponent implements OnInit{
+    login: boolean = true;
+    register_success: boolean= false;
 
-export class LandingComponent {
-    openPage: string;
+    myValueChange($event) {
+        this.login = $event['value'];
+        console.log(this.login);
+      }
+    registerTrigger($event) {
+        this.register_success = $event['value'];
+      }
 
-    constructor(private _router: Router) {
-        this.openPage = "login"
+    ngOnInit() {
+        let jwt = localStorage.getItem('jwt');
+        console.log(jwt)
+        if (jwt) {
+            this.router.navigate(['Home']);
+        }
     }
 
-    openLogin() {
-        this.openPage = "login"
-        console.log("login")
-        let link = ['LoginComponent'];
-        this._router.navigate(link);
-    }
-    openSignUp() {
-        this.openPage = "signup"
-        console.log("signup")
+    constructor(
+        private _service: AuthenticationService, private router: Router) {
     }
 }
-

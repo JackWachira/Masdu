@@ -1,5 +1,29 @@
-<nav>
-<a [routerLink]="['Login']">Dashboard</a>
-<a [routerLink]="['SignUp']">Heroes</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container main">
+    <div class="col-md-12 col-sm-12">
+        <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <div class="background-image" style="background-image: url(assets/img/bucket_list.jpg);"></div>
+        <div class="col-md-12" id="inner">
+            <div class="container " id="size-banner">
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="ml" *ngIf="login">
+                        <login-form (loginChange)="myValueChange($event);"></login-form>
+                    </div>
+                    <div class="ml" *ngIf="!login">
+                        <register-form (registerSuccess)="registerTrigger($event);" (signupChange)=" myValueChange($event); "></register-form>
+                    </div>
+                    <div class="col-md-6 ">
+                        <img src="assets/img/masdu_light_blue.png " alt="Musdo " style="margin-left: 30%;margin-top: 20% ">
+                        <blockquote>
+                            <h3 style="color: #32c4f0; "><em>Life is a one time offer, use it well</em></h3>
+                            <cite>Jack M.</cite>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="row ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

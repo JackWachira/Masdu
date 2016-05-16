@@ -12,21 +12,17 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
     styleUrls: ['assets/css/app.component.css'],
 })
 @RouteConfig([
-    {
-      path: '/home',
-      name: 'Home',
-      component: HomeComponent,
-      useAsDefault: true
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: LoginComponent,
-    },
-    {
-      path: '/signup',
-      name: 'SignUp',
-      component: SignUpComponent
-    },
+      {
+          path: '/',
+          name: 'Landing',
+          component: LandingComponent,
+          useAsDefault: true
+      },
+      {
+          path: '/home',
+          name: 'Home',
+          component: HomeComponent,
+      },
+
 ])
 export class App {}
