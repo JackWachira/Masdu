@@ -1,32 +1,32 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
-import { HTTP_PROVIDERS} from '@angular/http';
-
-import { AboutComponent } from './+about/index';
-import { HomeComponent } from './+home/index';
-import { NameListService, NavbarComponent, ToolbarComponent } from './shared/index';
+import {Component, OnInit} from '@angular/core';
+import {LoginComponent} from './auth/login/login.component';
+import {HomeComponent} from './home/home.component';
+import { SignUpComponent } from './auth/signup/signup.component';
+import {LandingComponent} from './landing/landing.component';
+import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
-  selector: 'sd-app',
-  viewProviders: [NameListService, HTTP_PROVIDERS],
-  templateUrl: 'app.component.html',
-  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
+    selector: 'app',
+    directives: [LoginComponent, ROUTER_DIRECTIVES],
+    templateUrl: 'app/app.component.html',
+    styleUrls: ['assets/css/app.component.css'],
 })
+
 @Routes([
-  {
-    path: '/',
-    component: HomeComponent
-  },
-  {
-    path: '/about',
-    component: AboutComponent
-  }
+    {
+        path: '/',
+        component: LandingComponent
+    },
+    {
+        path: '/home',
+        component: HomeComponent
+    },
+
 ])
-/**
- * This class represents the main application component.
- * Within the @Routes annotation is the configuration of the
- * applications routes, configuring the paths for the lazy
- * loaded components (HomeComponent, AboutComponent).
- */
-export class AppComponent {}
+export class App implements OnInit {
+    constructor(private router: Router) { }
+
+    ngOnInit() {
+        this.router.navigate(['/']);
+    }
+ }
