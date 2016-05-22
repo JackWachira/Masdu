@@ -18,6 +18,43 @@ body,
     box-sizing: border-box;
 }
 
+.glyphicon-search {
+    font-size: 20px;
+    color: white;
+}
+
+.element {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-block {
+    height: 45px;
+}
+
+#search-box {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#search-input {
+    color: white;
+    line-height: 40px;
+}
+
+#search-icon {
+    margin: 10px 2px 0 0;
+    float: right;
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
 header {
     background: green;
     height: 50px;
@@ -51,12 +88,85 @@ header {
 }
 
 .side-top {
-    background: #1F2A46;
+    background: #5179b4;
     height: 45px;
 }
 
+
+/*.glyphicon-menu-hamburger {
+    -webkit-font-smoothing: antialiased;
+    color: white;
+    font-weight: 0.1;
+    font-size: 20px;
+    vertical-align: middle;
+    margin-top: 12px;
+    margin-left: 10px;
+}*/
+
+.round {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #222;
+    color: #FFF;
+    text-align: center;
+}
+
+.round.round-lg {
+    height: 30px;
+    width: 30px;
+    line-height: 40px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    font-size: 1.5em;
+    margin-top: 7.5px;
+    margin-left: 10px;
+}
+
+.round.hollow.blue {
+    color: #3EA6CE;
+    background-color: #FFF;
+    -webkit-box-shadow: 0px 0px 0px 3px #3EA6CE;
+    -moz-box-shadow: 0px 0px 0px 3px #3EA6CE;
+    box-shadow: 0px 0px 0px 3px #3EA6CE;
+}
+
+
+/* Relevant Code */
+
+.person {
+    display: table;
+    margin-top: 7.5px;
+    margin-left: 10px;
+}
+
+.person > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.person-avatarPlaceholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 31px;
+    text-align: center;
+}
+
+.person-avatarPlaceholder.color-1 {
+    color: white;
+    background: #28C7B4;
+}
+
+.js-initials {
+    font-style: bold;
+}
+
 .content-top {
-    background: #3D5D8E;
+    background: #5f83ba;
     height: 45px;
 }
 
