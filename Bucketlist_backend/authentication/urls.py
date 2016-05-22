@@ -7,9 +7,8 @@ from rest_framework.routers import DefaultRouter
 app_name = 'authentication'
 router = DefaultRouter()
 router.register(r'login', views.LoginView)
-urlpatterns = router.urls
+router.register(r'register', views.SignUpView)
 
 urlpatterns = [
-    # url(r'^signup', views.SignUpView.as_view()),
     url(r'^', include(router.urls)),
 ]

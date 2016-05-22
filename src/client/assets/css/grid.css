@@ -1,36 +1,71 @@
-.container {
-    padding: 5px;
+* {
     margin: 0;
-    list-style: none;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    padding: 0;
 }
-.item {
-    width: 200px;
-    height: 600px;
-    margin: 15px;
-    font-weight: bold;
+
+html,
+body,
+.main {
+    min-height: 100% !important;
+    height: 100%;
 }
-.item-new {
-    width: 200px;
-    height: 100px;
-    margin: 15px;
+
+.main {
+    display: table;
+    width: 100%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-span.glyphicon-plus {
-    font-size: 4em;
+
+header {
+    background: green;
+    height: 50px;
 }
-.btn-circle {
-  width: 100px;
-  height: 100px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.42;
-  border-radius: 70px;
+
+.row {
+    min-height: 100%;
+    display: table-row;
+}
+
+.col-md-3.no-float,
+.col-md-9.no-float {
+    float: none;
+    /* thanks baxabbit */
+}
+
+.col-md-3 {
+    display: table-cell;
+    background: white;
+    width: 25%;
+}
+
+.col-md-9 {
+    display: table-cell;
+    background-image: url(assets/img/bucket_list.jpg);
+    width: 75%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed!important;
+}
+
+.side-top {
+    background: #1F2A46;
+    height: 45px;
+}
+
+.content-top {
+    background: #3D5D8E;
+    height: 45px;
+}
+
+.content-top #title {
+    float: left;
+    margin: 10px;
+    color: white;
+}
+
+.content-main {
+    background: red;
 }

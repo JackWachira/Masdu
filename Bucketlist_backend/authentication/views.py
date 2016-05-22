@@ -24,7 +24,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-class SignUpView(generics.CreateAPIView):
+class SignUpView(viewsets.ViewSet):
     """
     Signup for users
     """
@@ -32,7 +32,7 @@ class SignUpView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny,)
 
-    def perform_create(self, serializer):
+    def create(self, request):
         username = self.request.data['username']
         email = self.request.data['email']
         password = self.request.data['password']

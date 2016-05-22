@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { BucketService } from '../bucketlist/bucketlist.service';
 import { Bucketlist } from '../bucketlist/bucketlist';
 
+declare var jQuery: JQueryStatic;
+
 @Component({
     selector: 'home-page',
     providers: [BucketService],
@@ -22,10 +24,11 @@ export class HomeComponent {
     @Input() hasItems: boolean = false;
     currentTitle: string;
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
-        this.openPage = "login";
-        let bucketitem = { "id": 1, "name": "Tour Msa", "date_created": "23/Mar/16", "date_modified": "23/Mar/16", "done": true }
-        this.bucket = { "id": 1, "name": "Travel", "items": bucketitem, "date_created": "Mr. Nice", "date_modified": "", "created_by": "" }
-        this.getHeroes();
+        // this.openPage = "login";
+        // let bucketitem = { "id": 1, "name": "Tour Msa", "date_created": "23/Mar/16", "date_modified": "23/Mar/16", "done": true }
+        // this.bucket = { "id": 1, "name": "Travel", "items": bucketitem, "date_created": "Mr. Nice", "date_modified": "", "created_by": "" }
+        // this.getHeroes();
+
 
     }
     getHeroes() {
@@ -46,6 +49,11 @@ export class HomeComponent {
         setTimeout(function() {
             textArea.focus();
         }, 0);
+    }
+    togglenav(event:any){
+        event.preventDefault();
+        jQuery(this.el.nativeElement)
+            .find('#wrapper').toggleClass("toggled");
     }
     blurOnEnter(event:any) {
         if (event.keyCode === 13) {

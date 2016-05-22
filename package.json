@@ -30,7 +30,8 @@
     "e2e.ci": "gulp build.prod --color && gulp build.js.e2e --color && gulp e2e --color",
     "tests.all": "npm test && npm run e2e.ci",
     "webdriver-start": "webdriver-manager start",
-    "webdriver-update": "webdriver-manager update"
+    "webdriver-update": "webdriver-manager update",
+    "typings": "typings"
   },
   "author": "Minko Gechev <mgechev>",
   "license": "MIT",

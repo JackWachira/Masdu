@@ -37,7 +37,7 @@ export class SignUpComponent {
                     "&username=" + username;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        this.http.post('http://localhost:8000/api/auth/register', params, {
+        this.http.post('http://localhost:8000/api/auth/register/', params, {
           headers: headers
           })
           .map(res => res.json())

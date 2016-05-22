@@ -4,6 +4,7 @@
   },
   "devDependencies": {},
   "ambientDependencies": {
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
     "Q": "github:DefinitelyTyped/DefinitelyTyped/q/Q.d.ts#5c3e47967affa3c4128a3875d1664ba206ae1b0f",
     "angular-protractor": "github:DefinitelyTyped/DefinitelyTyped/angular-protractor/angular-protractor.d.ts#64b25f63f0ec821040a5d3e049a976865062ed9d",
     "async": "github:DefinitelyTyped/DefinitelyTyped/async/async.d.ts#5c3e47967affa3c4128a3875d1664ba206ae1b0f",
