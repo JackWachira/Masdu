@@ -31,6 +31,7 @@ body,
 
 .search-block {
     height: 45px;
+    background: #7a98c6;
 }
 
 #search-box {
@@ -73,7 +74,7 @@ header {
 
 .col-md-3 {
     display: table-cell;
-    background: white;
+    background: #F7F7F7;
     width: 15%;
 }
 
@@ -186,8 +187,10 @@ header {
 }
 
 .selected {
-    background-color: #CFD8DC !important;
-    color: white;
+    background-color: #E0EEFA !important;
+    color: black;
+    padding: 0;
+    margin: 0;
 }
 
 .col-md-12 .bucket-items {
@@ -195,16 +198,18 @@ header {
     padding-right: 15px;
     /*width: 100%;*/
     list-style-type: none;
+    position: relative;
 }
 
 .col-md-12 .bucket-items li {
-   /* cursor: pointer;
+    cursor: pointer;
     position: relative;
     left: 0;
     margin: .5em;
     padding: .3em 0em;
     height: 38px;
-    background: white;*/
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 .buckets {
@@ -231,14 +236,19 @@ header {
     padding-left: 10px;
 }
 
+#add-box {
+    position: absolute;
+    height: 38px;
+    margin: 8px 0 0 10px;
+}
+
 .buckets li:hover {
     color: #607D8B;
-    background-color: #EEE;
-    padding: 0;
+    background-color: #E0EEFA;
 }
 
 .buckets li.selected:hover {
-    color: white;
+    color: black;
 }
 
 .buckets .text {
@@ -272,5 +282,88 @@ header {
 }
 
 .fa-list-ul {
-    color: gray;
+    color: #2B8DEC;
+    -webkit-text-stroke: 1px #F7F7F7;
 }
+
+.input-group-addon {
+    background: #7a98c6;
+}
+
+::-webkit-input-placeholder {
+    color: white;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: white;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: white;
+}
+
+:-ms-input-placeholder {
+    color: white;
+}
+
+p {
+    display: inline;
+}
+
+#bucket-item-name {
+    font-family: latto_font;
+    font-size: 15px;
+    line-height: 15px;
+    margin-left: 10px;
+    color: black;
+}
+
+#showcompleted {
+    width: 180px;
+    max-height: 20px;
+    margin: 5px 0 0 20px;
+    padding: 0 0 0 5px;
+    font-size: 12px;
+    font-family: latto_font;
+    background: #5f83ba;
+    color: white;
+}
+
+.bucket-ops {
+    display: inline;
+    float: right;
+    font-size: 10px;
+}
+
+.bucket-ops i {
+    margin-left: 10px;
+}
+
+.bucket-ops p {
+    font-family: latto_font;
+}
+
+.side-main-bottom {
+    bottom: 0;
+    width: 100%;
+    border-style: solid;
+    border-width: 0.1px 0 0 0;
+    color: #000000;
+    position: absolute;
+    vertical-align: bottom;
+}
+
+.side-main-bottom p {
+    color: blue;
+    font-family: latto_font;
+    font-size: 14px;
+}
+
+.side-main-bottom i {
+    -/*webkit-text-stroke: 1px blue;*/
+    color: blue;
+}
+
+#bucket-checkbox {}
