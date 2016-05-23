@@ -1,32 +1,70 @@
 <div class="main">
-    <div class="row">
+    <div class="page">
         <div class="col-md-3 no-float">
-            <div class="col-md-12 side-top">
-                <div class="col-md-2" style="height: 45px; background: transparent;">
-                    <div class="person">
-                        <div>
-                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">
+            <div class="row">
+                <div class="col-md-12 side-top">
+                    <div class="col-md-2" style="height: 45px; background: transparent;">
+                        <div class="person">
+                            <div>
+                                <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">
                         J
                         </span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
+                        <div class="col-md-8" id="search-box">
+                            <input type="text" class="form-control no-border input-lg" id="search-input">
+                        </div>
+                        <div class="col-md-4">
+                            <span class="col-md-4 glyphicon glyphicon-search" id="search-icon"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
-                    <div class="col-md-8" id="search-box">
-                        <input type="text" class="form-control no-border input-lg" id="search-input">
-                    </div>
-                    <div class="col-md-4">
-                        <span class="col-md-4 glyphicon glyphicon-search" id="search-icon"></span>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 side-main">
+                    <ul class="buckets">
+                        <li *ngFor="let bucket of bucketlist" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket)">
+                            <!-- <span class="glyphicon glyphicon-tasks"></span> {{bucket.name}} -->
+                            <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-9 no-float">
-            <div class="col-md-12 content-top">
-                <span id="title">Title</span>
+            <div class="row">
+                <div class="col-md-12 content-top">
+                    <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
+                </div>
             </div>
-            <div class="content-main">
+            <div class="row">
+                <div class="col-md-12 content-main">
+                    <div class="row">
+                        <div class="col-md-12 input-group input-group-lg" id="add-item">
+                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Add a Bucket Item" aria-describedby="sizing-addon1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 itemskk">
+                            <ul class="col-md-12 bucket-items" *ngIf="selectedBucket">
+                                <li *ngFor="let bucketitem of selectedBucket.items">
+                                    <!-- <span class="badge">{{hero.id}}</span> {{bucketitem.name}} -->
+                                    <!-- <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">{{bucketitem.name}}</label>
+                                        </div> -->
+                                    <div style="display:  ">
+                                        <input type="checkbox" value="">
+                                        <p id="bucketitem-text">{{bucketitem.name}}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>

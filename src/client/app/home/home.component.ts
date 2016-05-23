@@ -23,13 +23,16 @@ export class HomeComponent {
     @Input() bucket: Bucketlist;
     @Input() hasItems: boolean = false;
     currentTitle: string;
+    @Input() public selectedBucket: Bucketlist;
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
-        // this.openPage = "login";
-        // let bucketitem = { "id": 1, "name": "Tour Msa", "date_created": "23/Mar/16", "date_modified": "23/Mar/16", "done": true }
-        // this.bucket = { "id": 1, "name": "Travel", "items": bucketitem, "date_created": "Mr. Nice", "date_modified": "", "created_by": "" }
-        // this.getHeroes();
+        this.openPage = "login";
+        this.getHeroes();
 
 
+    }
+    onSelect(bucketitem: Bucketlist) {
+        this.selectedBucket = bucketitem;
+        console.log(this.selectedBucket);
     }
     getHeroes() {
         this.bucketService.getBucketlists().then(bucketlist => {
@@ -37,7 +40,7 @@ export class HomeComponent {
             console.log(this.bucket.name);
 
             if (this.bucketlist.length > 0) {
-                // this.bucket = bucketlist[0];
+                console.log(bucketlist[7].name);
                 this.hasItems = true;
             }
         });
