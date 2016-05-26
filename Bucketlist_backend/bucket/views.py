@@ -11,6 +11,7 @@ from django.utils.six import BytesIO
 from rest_framework.parsers import JSONParser
 from django.core import serializers
 from functools import wraps
+from rest_framework.decorators import detail_route, list_route
 
 
 def isexisting(f):
@@ -70,3 +71,20 @@ class BucketListView(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, 200)
         return Response(serializer.errors, 400)
+
+    @isexisting
+    @detail_route(methods=['post'])
+    def items(self, request, pk=None):
+        serializer = BucketlistItemSerializer(data=request.data)
+        if serializer.is_valid():
+            name = self.request.data['name']
+            parent_bucket = BucketList(pk=pk)
+            try:
+                bucket_list_item = BucketListItem.objects.create(
+                    name=name, done="F", bucketlist=parent_bucket)
+                return Response({'message': 'BucketList Item created successfully'}, 201)
+            except IntegrityError as e:
+                return Response({'error': e.message}, 400)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
