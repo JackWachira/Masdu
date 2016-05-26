@@ -42,6 +42,8 @@ export class HomeComponent {
             if (this.bucketlist.length > 0) {
                 console.log(bucketlist[7].name);
                 this.hasItems = true;
+            }else{
+                this.hasItems = false;
             }
         });
     }

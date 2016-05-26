@@ -14,6 +14,7 @@ from rest_framework import renderers
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from rest_framework import viewsets
+from django.db import IntegrityError
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -33,12 +34,20 @@ class SignUpView(viewsets.ViewSet):
     permission_classes = (permissions.AllowAny,)
 
     def create(self, request):
-        username = self.request.data['username']
-        email = self.request.data['email']
-        password = self.request.data['password']
-
-        new_user = User.objects.create_user(
-            username=username, email=email, password=password)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            username = self.request.data['username']
+            email = self.request.data['email']
+            password = self.request.data['password']
+            try:
+                new_user = User.objects.create_user(
+                    username=username, email=email, password=password)
+                return Response({'message': 'Registration successful'}, 201)
+            except IntegrityError as e:
+                return Response({'error': e.message}, 400)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(viewsets.ViewSet):

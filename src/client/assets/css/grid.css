@@ -17,7 +17,11 @@ body,
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+.col-md-4 i{
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
 .glyphicon-search {
     font-size: 20px;
     color: white;
@@ -351,19 +355,25 @@ p {
     border-style: solid;
     border-width: 0.1px 0 0 0;
     color: #000000;
-    position: absolute;
+    position: fixed;
     vertical-align: bottom;
+    display: inline-block;
+    min-height: 42px;
+    padding-top: 10px;
 }
 
 .side-main-bottom p {
-    color: blue;
+    color: #5EA2DD;
     font-family: latto_font;
     font-size: 14px;
+    vertical-align: middle;
+
 }
 
 .side-main-bottom i {
     -/*webkit-text-stroke: 1px blue;*/
     color: blue;
+    vertical-align: middle;
 }
 
 #bucket-checkbox {}
