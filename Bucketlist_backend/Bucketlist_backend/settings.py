@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'registration',
-    'corsheaders'
+    'corsheaders',
+    'bucket'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -61,7 +62,12 @@ MIDDLEWARE_CLASSES = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'PAGE_SIZE': 10
 }
 
@@ -103,7 +109,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthentication']
+AUTHENTICATION_BACKENDS = [
+    'django-dual-authentication.backends.DualAuthentication']
 
 ###############################
 """   DUAL AUTHENTICATION  """

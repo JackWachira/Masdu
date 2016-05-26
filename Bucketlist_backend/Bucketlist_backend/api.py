@@ -13,4 +13,5 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     # URL definition for API goes here.
     url(r'^auth/', include('authentication.urls')),
+    url(r'^bucketlists', include('bucket.urls')),
 ]
