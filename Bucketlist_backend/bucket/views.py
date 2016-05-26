@@ -14,7 +14,7 @@ from functools import wraps
 from rest_framework.decorators import detail_route, list_route
 
 
-def isexisting(f):
+def bucket_existing(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         pk = kwargs.get('pk', "")
@@ -23,6 +23,23 @@ def isexisting(f):
             return f(*args, **kwargs)
         except BucketList.DoesNotExist:
             return Response({'error': 'The bucketlist does not exist'}, 404)
+    return decorated
+
+
+def item_existing(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        bucketlists_pk = kwargs.get('bucketlists_pk', "")
+        pk = kwargs.get('pk', "")
+        try:
+            bucketlist = BucketList.objects.get(pk=bucketlists_pk)
+        except BucketList.DoesNotExist:
+            return Response({'error': 'The bucketlist does not exist'}, 404)
+        try:
+            bucketlist_item = BucketListItem.objects.get(pk=pk)
+            return f(*args, **kwargs)
+        except BucketListItem.DoesNotExist:
+            return Response({'error': 'The bucketlist item does not exist'}, 404)
     return decorated
 
 
@@ -58,12 +75,12 @@ class BucketListView(viewsets.ModelViewSet):
         serializer = self.get_serializer(bucketlists, many=True)
         return Response(serializer.data)
 
-    @isexisting
+    @bucket_existing
     def destroy(self, request, pk=None):
         bucketlist = BucketList.objects.get(pk=pk).delete()
         return Response({'Message': 'Bucketlist deleted successfully'}, 200)
 
-    @isexisting
+    @bucket_existing
     def update(self, request, pk=None):
         serializer = BucketlistSerializer(
             BucketList.objects.get(pk=pk), data=request.data)
@@ -72,13 +89,21 @@ class BucketListView(viewsets.ModelViewSet):
             return Response(serializer.data, 200)
         return Response(serializer.errors, 400)
 
-    @isexisting
-    @detail_route(methods=['post'])
-    def items(self, request, pk=None):
+
+class BucketListItemView(viewsets.ModelViewSet):
+    """
+    Bucketlistitem view
+    """
+
+    queryset = BucketListItem.objects.all()
+    serializer_class = BucketlistItemSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOwner)
+
+    def create(self, request, pk=None, bucketlists_pk=None):
         serializer = BucketlistItemSerializer(data=request.data)
         if serializer.is_valid():
             name = self.request.data['name']
-            parent_bucket = BucketList(pk=pk)
+            parent_bucket = BucketList(pk=bucketlists_pk)
             try:
                 bucket_list_item = BucketListItem.objects.create(
                     name=name, done="F", bucketlist=parent_bucket)
@@ -88,3 +113,18 @@ class BucketListView(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+    @item_existing
+    def update(self, request, pk=None, bucketlists_pk=None):
+        serializer = BucketlistItemSerializer(
+            BucketListItem.objects.get(pk=pk), data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, 200)
+        return Response(serializer.errors, 400)
+
+    @item_existing
+    def destroy(self, request, pk=None, bucketlists_pk=None):
+        print bucketlists_pk
+        bucketlist_item = BucketListItem.objects.get(pk=pk).delete()
+        return Response({'Message': 'Bucketlist item deleted successfully'}, 200)
