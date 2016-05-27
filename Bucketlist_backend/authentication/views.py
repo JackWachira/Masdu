@@ -48,29 +48,29 @@ class SignUpView(viewsets.ViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginView(viewsets.ViewSet):
+# class LoginView(viewsets.ViewSet):
 
-    """
-    Login for users
-    """
-    queryset = User.objects.all()
-    serializer_class = LoginSerializer
-    permission_classes = (permissions.AllowAny,)
+#     """
+#     Login for users
+#     """
+#     queryset = User.objects.all()
+#     serializer_class = LoginSerializer
+#     permission_classes = (permissions.AllowAny,)
 
-    def create(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            email = self.request.data['email']
-            password = self.request.data['password']
-            user = authenticate(username=email, password=password)
-            if user is not None:
-                if user.is_active:
-                    token, created = Token.objects.get_or_create(user=user)
-                    return Response({'Authorization': token.key}, 200)
-                else:
-                    return Response({'Error': "Account Disabled"}, 403)
-            else:
-                return Response({'Error': "Incorrect Username/Password"}, 400)
-        else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+#     def create(self, request):
+#         serializer = LoginSerializer(data=request.data)
+#         if serializer.is_valid():
+#             email = self.request.data['email']
+#             password = self.request.data['password']
+#             user = authenticate(username=email, password=password)
+#             if user is not None:
+#                 if user.is_active:
+#                     token, created = Token.objects.get_or_create(user=user)
+#                     return Response({'Authorization': token.key}, 200)
+#                 else:
+#                     return Response({'Error': "Account Disabled"}, 403)
+#             else:
+#                 return Response({'Error': "Incorrect Username/Password"}, 400)
+#         else:
+#             return Response(serializer.errors,
+#                             status=status.HTTP_400_BAD_REQUEST)

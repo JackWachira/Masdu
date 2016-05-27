@@ -23,12 +23,12 @@ bootstrap(App, [
       useFactory: (http:any) => {
           return new AuthHttp(new AuthConfig({
               headerName: 'Authorization',
-              headerPrefix: 'Token',
+              headerPrefix: 'Token ',
               tokenName: 'auth_token',
-              // tokenGetter: 'get_auth()',
+              tokenGetter: (() => localStorage.getItem('auth_token')),
               globalHeaders: [{ 'Content-Type': 'application/json' }],
-              noJwtError: true,
-              noTokenScheme: true
+              noJwtError: false,
+              noTokenScheme: false
           }), http);
       },
       deps: [Http]

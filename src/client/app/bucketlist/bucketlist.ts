@@ -1,6 +1,6 @@
 import { BucketItem } from './bucketitem';
 
-export class Bucketlist {
+export interface Bucketlist {
     id: number;
     name: string;
     items: BucketItem;

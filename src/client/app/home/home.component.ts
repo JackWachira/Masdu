@@ -1,22 +1,25 @@
-import {Component, ElementRef, Input} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { LoginComponent } from '../auth/login/login.component';
 import { SignUpComponent } from '../auth/signup/signup.component';
 import { Router } from '@angular/router';
 import { BucketService } from '../bucketlist/bucketlist.service';
 import { Bucketlist } from '../bucketlist/bucketlist';
-
+import { HTTP_PROVIDERS } from '@angular/http';
+import {CanActivate} from '@angular/router-deprecated';
+import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
+import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 declare var jQuery: JQueryStatic;
 
 @Component({
     selector: 'home-page',
-    providers: [BucketService],
+    providers: [BucketService, HTTP_PROVIDERS],
     directives: [LoginComponent],
     templateUrl: 'app/home/home.component.html',
     styleUrls: ['assets/css/grid.css']
 })
-
-export class HomeComponent {
+// @CanActivate(() => tokenNotExpired('auth_token'))
+export class HomeComponent implements OnInit{
     openPage: string;
     editing = false;
     @Input() bucketlist: Bucketlist[];
@@ -24,29 +27,45 @@ export class HomeComponent {
     @Input() hasItems: boolean = false;
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
+
+
+    private bctlst:Bucketlist[];
+
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
         this.openPage = "login";
-        this.getHeroes();
-
-
+    }
+    ngOnInit(){
+        this.bucketService.getBucketLists().subscribe(
+            data => this.onComplete(data),
+            err => this.logError(err),
+            () => console.log('Authentication Complete')
+        );
     }
     onSelect(bucketitem: Bucketlist) {
         this.selectedBucket = bucketitem;
         console.log(this.selectedBucket);
     }
-    getHeroes() {
-        this.bucketService.getBucketlists().then(bucketlist => {
-            this.bucketlist = bucketlist;
-            console.log(this.bucket.name);
-
-            if (this.bucketlist.length > 0) {
-                console.log(bucketlist[7].name);
-                this.hasItems = true;
-            }else{
-                this.hasItems = false;
-            }
-        });
+    logError(err: any) {
+        console.log(err["_body"])
     }
+    onComplete(data: any) {
+        console.log(data)
+    }
+
+
+    // getHeroes() {
+    //     this.bucketService.getBucketlists().then(bucketlist => {
+    //         this.bucketlist = bucketlist;
+    //         console.log(this.bucket.name);
+
+    //         if (this.bucketlist.length > 0) {
+    //             console.log(bucketlist[7].name);
+    //             this.hasItems = true;
+    //         }else{
+    //             this.hasItems = false;
+    //         }
+    //     });
+    // }
     editCard() {
         this.editing = true;
         this.currentTitle = this.bucket.name;

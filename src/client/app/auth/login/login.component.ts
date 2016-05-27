@@ -41,12 +41,14 @@ export class LoginComponent implements OnInit {
             );
     }
     logError(err:any) {
+        console.log(err);
         this.correct = false;
         this.userobj = JSON.parse(err["_body"]);
         this.arrayOfKeys = Object.keys(this.userobj);
     }
     onComplete(data:any){
-        localStorage.setItem('jwt', data["Authorization"]);
+        console.log(data);
+        localStorage.setItem('auth_token', data["Authorization"]);
         this.router.navigate(['/home']);
 
     }
