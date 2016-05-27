@@ -2,7 +2,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode, provide } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { ROUTER_PROVIDERS } from '@angular/router';
-
+import {AuthHttp, JwtHelper, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
+import {Http, HTTP_PROVIDERS} from '@angular/http';
 import { App } from './app.component';
 
 if ('<%= ENV %>' === 'prod') { enableProdMode(); }
@@ -15,16 +16,22 @@ if ('<%= ENV %>' === 'prod') { enableProdMode(); }
  */
 bootstrap(App, [
   ROUTER_PROVIDERS,
-  provide(APP_BASE_HREF, { useValue: '<%= APP_BASE %>' })
+  HTTP_PROVIDERS,
+  AUTH_PROVIDERS,
+  provide(APP_BASE_HREF, { useValue: '<%= APP_BASE %>' }),
+  provide(AuthHttp, {
+      useFactory: (http:any) => {
+          return new AuthHttp(new AuthConfig({
+              headerName: 'Authorization',
+              headerPrefix: 'Token',
+              tokenName: 'auth_token',
+              // tokenGetter: 'get_auth()',
+              globalHeaders: [{ 'Content-Type': 'application/json' }],
+              noJwtError: true,
+              noTokenScheme: true
+          }), http);
+      },
+      deps: [Http]
+  })
 ]);
 
-// In order to start the Service Worker located at "./worker.js"
-// uncomment this line. More about Service Workers here
-// https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
-//
-// if ('serviceWorker' in navigator) {
-//   (<any>navigator).serviceWorker.register('./worker.js').then((registration: any) =>
-//       console.log('ServiceWorker registration successful with scope: ', registration.scope))
-//     .catch((err: any) =>
-//       console.log('ServiceWorker registration failed: ', err));
-// }

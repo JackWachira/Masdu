@@ -5,14 +5,6 @@ from rest_framework_nested import routers
 from django.conf.urls import patterns
 
 app_name = 'bucket'
-# router = DefaultRouter()
-# router.register(r'^', views.BucketListView)
-# # router.register(r'^(?P<pk>[0-9]+)/items', views.BucketListItemView)
-
-# urlpatterns = [
-#     url(r'', include(router.urls)),
-# ]
-
 
 router = routers.SimpleRouter()
 router.register(r'^', views.BucketListView)
