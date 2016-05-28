@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
         let email = this.model.email;
         let password = this.model.password;
-        var params = "email=" + email + "&password=" + password;
+        var params = "username=" + email + "&password=" + password;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         this.http.post('http://localhost:8000/api/auth/login/', params, {
@@ -48,9 +48,8 @@ export class LoginComponent implements OnInit {
     }
     onComplete(data:any){
         console.log(data);
-        localStorage.setItem('auth_token', data["Authorization"]);
+        localStorage.setItem('auth_token', data["token"]);
         this.router.navigate(['/home']);
-
     }
     closealert(){
         this.register_success = true;

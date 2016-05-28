@@ -5,10 +5,9 @@ import { SignUpComponent } from '../auth/signup/signup.component';
 import { Router } from '@angular/router';
 import { BucketService } from '../bucketlist/bucketlist.service';
 import { Bucketlist } from '../bucketlist/bucketlist';
+import { BucketItem } from '../bucketlist/bucketitem';
 import { HTTP_PROVIDERS } from '@angular/http';
 import {CanActivate} from '@angular/router-deprecated';
-import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
-import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 declare var jQuery: JQueryStatic;
 
 @Component({
@@ -18,38 +17,58 @@ declare var jQuery: JQueryStatic;
     templateUrl: 'app/home/home.component.html',
     styleUrls: ['assets/css/grid.css']
 })
-// @CanActivate(() => tokenNotExpired('auth_token'))
+
+
 export class HomeComponent implements OnInit{
     openPage: string;
     editing = false;
     @Input() bucketlist: Bucketlist[];
+    @Input() bucketitem: BucketItem[];
     @Input() bucket: Bucketlist;
+    @Input() itemcount: number;
     @Input() hasItems: boolean = false;
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
 
-
     private bctlst:Bucketlist[];
-
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
         this.openPage = "login";
     }
     ngOnInit(){
-        this.bucketService.getBucketLists().subscribe(
-            data => this.onComplete(data),
-            err => this.logError(err),
-            () => console.log('Authentication Complete')
-        );
+        var token = localStorage.getItem('auth_token');
+        if (token){
+            this.bucketService.getBucketLists().subscribe(
+                data => this.onComplete(data),
+                err => this.logError(err),
+                () => console.log('Authentication Complete')
+            );
+        }
     }
     onSelect(bucketitem: Bucketlist) {
         this.selectedBucket = bucketitem;
+        this.itemcount = Object.keys(bucketitem.items).length;
         console.log(this.selectedBucket);
     }
     logError(err: any) {
-        console.log(err["_body"])
+        console.log(err["_body"]);
     }
     onComplete(data: any) {
-        console.log(data)
+        console.log(data["results"]);
+        this.bucketlist = data["results"];
+    }
+    addItem(itemname: string) {
+        var index=this.bucketlist.indexOf(this.selectedBucket);
+        var item = new BucketItem;
+        item.name = itemname;
+        this.selectedBucket.items.push(item)
+        var token = localStorage.getItem('auth_token');
+        if (token){
+            this.bucketService.saveBucketItem.subscribe(
+                data => this.onComplete(data),
+                err => this.logError(err),
+                () => console.log('Authentication Complete')
+            );
+        }
     }
 
 

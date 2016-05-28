@@ -29,7 +29,7 @@
                         <li *ngFor="let bucket of bucketlist" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket)">
                             <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
                             <div *ngIf="bucket === selectedBucket" class="bucket-ops">
-                                <p style="font-size: 10px">10</p>
+                                <p style="font-size: 10px">{{itemcount}}</p>
                                 <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                             </div>
                         </li>
@@ -52,23 +52,23 @@
                     <div class="row">
                         <div class="col-md-12 input-group input-group-lg" id="add-item">
                             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-plus" style="color: white;"aria-hidden="true"></i></span>
-                            <input style="background: #7a98c6;color: white;" type="text" class="form-control" placeholder="Add a Bucket Item" aria-describedby="sizing-addon1">
+                            <input #item (keyup.enter)="addItem(item.value)" style=" background: #7a98c6;color: white; " type="text " class="form-control " placeholder="Add a Bucket Item " aria-describedby="sizing-addon1 ">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12 items">
-                            <ul class="col-md-12 bucket-items" *ngIf="selectedBucket">
-                                <li *ngFor="let bucketitem of selectedBucket.items">
-                                    <div class="col-md-12" id="add-box">
-                                        <i id="bucket-checkbox" class="fa fa-square-o fa-lg" aria-hidden="true"></i>
-                                        <p id="bucket-item-name">{{bucketitem.name}}</p>
+                    <div class="row " style="margin-top: 10px; ">
+                        <div class="col-md-12 items ">
+                            <ul class="col-md-12 bucket-items " *ngIf="selectedBucket ">
+                                <li *ngFor="let bucketitem of selectedBucket.items ">
+                                    <div class="col-md-12 " id="add-box ">
+                                        <i id="bucket-checkbox " class="fa fa-square-o fa-lg " aria-hidden="true "></i>
+                                        <p id="bucket-item-name ">{{bucketitem.name}}</p>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="panel panel-default" id="showcompleted">
-                        <div class="panel-body">
+                    <div class="panel panel-default " id="showcompleted ">
+                        <div class="panel-body ">
                             SHOW COMPLETED TO-DO'S
                         </div>
                     </div>
