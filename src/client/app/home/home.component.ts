@@ -35,14 +35,7 @@ export class HomeComponent implements OnInit{
         this.openPage = "login";
     }
     ngOnInit(){
-        var token = localStorage.getItem('auth_token');
-        if (token){
-            this.bucketService.getBucketLists().subscribe(
-                data => this.onComplete(data),
-                err => this.logError(err),
-                () => console.log('Authentication Complete')
-            );
-        }
+        this.fetchbuckets();
     }
     onSelect(bucketitem: Bucketlist) {
         this.selectedBucket = bucketitem;
@@ -50,41 +43,43 @@ export class HomeComponent implements OnInit{
         console.log(this.selectedBucket);
     }
     logError(err: any) {
-        console.log(err["_body"]);
+        console.log(err);
+        if(err['status']==403){
+            console.log(err['_body']);
+            this._router.navigate(['/']);
+        }
     }
     onComplete(data: any) {
         console.log(data["results"]);
         this.bucketlist = data["results"];
+        this.selectedBucket = this.bucketlist[0];
+    }
+    onSaveItem(data: any) {
+        console.log(data["results"]);
+        this.onSelect(this.selectedBucket);
+        this.fetchbuckets();
+    }
+    fetchbuckets(){
+        this.bucketService.getBucketLists().subscribe(
+            data => this.onComplete(data),
+            err => this.logError(err),
+            () => console.log('Authentication Complete')
+        );
     }
     addItem(itemname: string) {
-        var index=this.bucketlist.indexOf(this.selectedBucket);
-        var item = new BucketItem;
-        item.name = itemname;
-        this.selectedBucket.items.push(item)
+        // var index=this.bucketlist.indexOf(this.selectedBucket);
+        // var item = new BucketItem;
+        // item.name = itemname;
+        // this.selectedBucket.items.push(item)
         var token = localStorage.getItem('auth_token');
         if (token){
-            this.bucketService.saveBucketItem.subscribe(
-                data => this.onComplete(data),
+            this.bucketService.saveBucketItem(this.selectedBucket.id, itemname).subscribe(
+                data => this.onSaveItem(data),
                 err => this.logError(err),
-                () => console.log('Authentication Complete')
+                () => console.log('Add successful')
             );
         }
     }
-
-
-    // getHeroes() {
-    //     this.bucketService.getBucketlists().then(bucketlist => {
-    //         this.bucketlist = bucketlist;
-    //         console.log(this.bucket.name);
-
-    //         if (this.bucketlist.length > 0) {
-    //             console.log(bucketlist[7].name);
-    //             this.hasItems = true;
-    //         }else{
-    //             this.hasItems = false;
-    //         }
-    //     });
-    // }
     editCard() {
         this.editing = true;
         this.currentTitle = this.bucket.name;
@@ -110,9 +105,6 @@ export class HomeComponent implements OnInit{
         if (!this.bucket.name || this.bucket.name.trim() === '') {
             this.bucket.name = this.currentTitle;
         }
-        // this._cardService.put(this.card).then(res => {
-        //     this._ws.updateCard(this.card.boardId, this.card);
-        // });
         this.editing = false;
     }
 }

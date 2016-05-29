@@ -12,14 +12,24 @@ export class BucketService {
     constructor(public http: Http) {
 
     }
-    getBucketLists(): Observable<Bucketlist[]>{
+    getBucketLists(): Observable<Bucketlist[]> {
 
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        console.log(headers);
         return this.http.get('http://localhost:8000/api/bucketlists/', {
             headers: headers
         })
             .map(res => res.json());
     }
+    saveBucketItem(bid: number, name: string): Observable<any> {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
+        let body = JSON.stringify({ name:'Jack' });
+        console.log(body);
+        return this.http.post('http://localhost:8000/api/bucketlists/' + bid + '/items/', JSON.stringify({ "name": name }), {
+            headers: headers})
+            .map(res => res.json());
+    }
+}
