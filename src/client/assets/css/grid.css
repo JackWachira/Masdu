@@ -227,6 +227,20 @@ ul.bucket-items li {
     border-radius: 4px;
     position: relative;
 }
+ul.completed-items li {
+    display: block;
+    line-height: 23px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    margin: 0 20px 1px 20px;
+    /*padding: .3em 0em;*/
+    min-height: 23px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 4px;
+    position: relative;
+}
 
 .buckets {
     margin: 0 0 2em 0;
@@ -318,7 +332,7 @@ ul.bucket-items li {
 :-moz-placeholder {
     /* Firefox 18- */
     color: white;
-}
+}11
 
 ::-moz-placeholder {
     /* Firefox 19+ */
@@ -344,12 +358,17 @@ p {
 #showcompleted {
     width: 180px;
     max-height: 26px;
-    line-height: 22px margin: 20px 0 20px 12px;
+    line-height: 22px;
+    margin: 20px 0 20px 12px;
     padding: 0 0 0 5px;
     font-size: 12px;
     font-family: latto_font;
     background: #5f83ba;
     color: white;
+}
+
+#showcompleted:hover {
+    cursor: pointer;
 }
 
 .bucket-ops {
@@ -410,6 +429,24 @@ p {
     font-size: 15px;
     font-weight: lighter;
 }
+.view-done div label {
+    white-space: pre;
+    word-break: break-word;
+    /*padding: 0px 60px 0px 15px;*/
+    /*margin-left: 45px;*/
+    display: block;
+    /*line-height: 46px;*/
+    transition: color 0.4s;
+    font-family: latto_medium;
+    font-size: 15px;
+    font-weight: lighter;
+}
+.view-done div p {
+    font-family: latto_medium;
+    font-size: 10px;
+    font-weight: lighter;
+    color: #8B8273;
+}
 
 #add-item input {
     font-family: latto_medium;
@@ -428,7 +465,7 @@ p {
 }
 
 div.completed label {
-    color: #d9d9d9;
+    color: #9F9687;
     text-decoration: line-through;
 }
 
@@ -464,12 +501,26 @@ div.completed label {
 .toggle {
     text-align: center;
     width: 38px;
-    /* auto, since non-WebKit browsers doesn't support input styling */
-    height: auto;
+    height: 38px;
     position: absolute;
     top: 0;
     bottom: 0;
     margin: auto 0;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+
+}
+.toggle-done {
+    text-align: center;
+    width: 38px;
+    /* auto, since non-WebKit browsers doesn't support input styling */
+    position: relative;
+    vertical-align: middle;
+    top: 0;
+    bottom: 0;
+    /*margin: auto 0;*/
     border: none;
     /* Mobile Safari */
     -webkit-appearance: none;
@@ -485,7 +536,13 @@ div.completed label {
 .toggle:checked:after {
     content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
 }
+.toggle-done:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#A6A6A6" stroke-width="3"/></svg>');
+}
 
+.toggle-done:checked:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ad9f9f" stroke-width="3"/><path fill="#A6A6A6" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
 
 li .edit {
     display: none;
@@ -529,4 +586,19 @@ li.editing .view {
 
 input[type="checkbox"] {
     outline: none;
+}
+
+.completed-items {
+    margin-top: 10px 10px 10px 10px;
+}
+
+ul.completed-items li {
+    background: rgba(255, 255, 255, 0.7);
+    color: black;
+    text-shadow: 1 1 1 black !important;
+}
+
+.scrollable {
+    overflow-y: scroll;
+    height: 90vh;
 }

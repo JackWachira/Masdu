@@ -32,4 +32,13 @@ export class BucketService {
             headers: headers})
             .map(res => res.json());
     }
+    updateItem(name:string ,bid: number, itemid: number, done: boolean): Observable<any> {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
+        return this.http.put('http://localhost:8000/api/bucketlists/' + bid + '/items/' + itemid + '/', JSON.stringify({ 'name': name , 'done': done}), {
+            headers: headers
+        })
+            .map(res => res.json());
+    }
 }

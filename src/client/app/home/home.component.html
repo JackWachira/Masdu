@@ -47,19 +47,19 @@
                     <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
                 </div>
             </div>
-            <div class="row">
+            <div class="row scrollable">
                 <div class="col-md-12 content-main">
                     <div class="row">
                         <div class="col-md-12 input-group input-group-lg" id="add-item">
                             <input #item (keyup.enter)="addItem(item.value)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
                         </div>
                     </div>
-                    <div class="row " style="margin-top: 10px; ">
+                    <div class="row" style="margin-top: 10px;">
                         <div class="col-md-12 items ">
                             <ul class="col-md-12 bucket-items " *ngIf="selectedBucket ">
-                                <li *ngFor="let bucketitem of selectedBucket.items">
+                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems">
                                     <div class="view" [class.completed]="bucketitem.done">
-                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="item.completed">
+                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                         <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
                                         <button (click)="doneClicked()" class="destroy"></button>
                                     </div>
@@ -67,10 +67,25 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="panel panel-default" id="showcompleted">
+                    <div (click)="showCompleted()" class="panel panel-default" id="showcompleted">
                         <div class="panel-body">
-                            SHOW COMPLETED TO-DO'S
+                            SHOW COMPLETED ITEMS
                         </div>
+                    </div>
+                    <div [hidden]="!visible" class="col-md-12 ">
+                        <ul class="col-md-12 completed-items " *ngIf="selectedBucket ">
+                            <li *ngFor="let bucketitem of selectedBucket.items | doneitems">
+                                <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
+                                    <div class="col-md-1">
+                                        <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
+                                    </div>
+                                    <div class="col-md-11">
+                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                        <p>{{bucketitem.date_updated}} by {{username}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
