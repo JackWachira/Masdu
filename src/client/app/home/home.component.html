@@ -51,24 +51,24 @@
                 <div class="col-md-12 content-main">
                     <div class="row">
                         <div class="col-md-12 input-group input-group-lg" id="add-item">
-                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-plus" style="color: white;"aria-hidden="true"></i></span>
-                            <input #item (keyup.enter)="addItem(item.value)" style=" background: #7a98c6;color: white; " type="text " class="form-control " placeholder="Add a Bucket Item " aria-describedby="sizing-addon1 ">
+                            <input #item (keyup.enter)="addItem(item.value)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
                         </div>
                     </div>
                     <div class="row " style="margin-top: 10px; ">
                         <div class="col-md-12 items ">
                             <ul class="col-md-12 bucket-items " *ngIf="selectedBucket ">
-                                <li *ngFor="let bucketitem of selectedBucket.items ">
-                                    <div class="col-md-12 " id="add-box ">
-                                        <i id="bucket-checkbox " class="fa fa-square-o fa-lg " aria-hidden="true "></i>
-                                        <p id="bucket-item-name ">{{bucketitem.name}}</p>
+                                <li *ngFor="let bucketitem of selectedBucket.items">
+                                    <div class="view" [class.completed]="bucketitem.done">
+                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="item.completed">
+                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                        <button (click)="doneClicked()" class="destroy"></button>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="panel panel-default " id="showcompleted ">
-                        <div class="panel-body ">
+                    <div class="panel panel-default" id="showcompleted">
+                        <div class="panel-body">
                             SHOW COMPLETED TO-DO'S
                         </div>
                     </div>

@@ -106,7 +106,7 @@ class BucketListItemView(viewsets.ModelViewSet):
             parent_bucket = BucketList(pk=bucketlists_pk)
             try:
                 bucket_list_item = BucketListItem.objects.create(
-                    name=name, done="F", bucketlist=parent_bucket)
+                    name=name, done=False, bucketlist=parent_bucket)
                 return Response({'message': 'BucketList Item created successfully'}, 201)
             except IntegrityError as e:
                 return Response({'error': e.message}, 400)

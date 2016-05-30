@@ -37,6 +37,12 @@ export class HomeComponent implements OnInit{
     ngOnInit(){
         this.fetchbuckets();
     }
+    // doneClicked() {
+    //     this.done.emit(this.item.uuid);
+    // }
+    toggle(bucketitem: BucketItem) {
+        bucketitem.done = !bucketitem.done;
+    }
     onSelect(bucketitem: Bucketlist) {
         this.selectedBucket = bucketitem;
         this.itemcount = Object.keys(bucketitem.items).length;
@@ -50,13 +56,14 @@ export class HomeComponent implements OnInit{
         }
     }
     onComplete(data: any) {
-        console.log(data["results"]);
         this.bucketlist = data["results"];
-        this.selectedBucket = this.bucketlist[0];
+        if (this.selectedBucket==null){
+            this.selectedBucket = this.bucketlist[0];
+        }
+        this.onSelect(this.selectedBucket);
     }
     onSaveItem(data: any) {
         console.log(data["results"]);
-        this.onSelect(this.selectedBucket);
         this.fetchbuckets();
     }
     fetchbuckets(){
@@ -67,10 +74,6 @@ export class HomeComponent implements OnInit{
         );
     }
     addItem(itemname: string) {
-        // var index=this.bucketlist.indexOf(this.selectedBucket);
-        // var item = new BucketItem;
-        // item.name = itemname;
-        // this.selectedBucket.items.push(item)
         var token = localStorage.getItem('auth_token');
         if (token){
             this.bucketService.saveBucketItem(this.selectedBucket.id, itemname).subscribe(
