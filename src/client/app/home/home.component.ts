@@ -38,17 +38,19 @@ export class HomeComponent implements OnInit{
     @Input() public selectedBucket: Bucketlist;
     visible: boolean = false;
     editMode = false;
+    index: number=0;
 
     private bctlst:Bucketlist[];
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
         this.openPage = "login";
     }
     ngOnInit(){
-        this.bucketService.getBucketLists().subscribe(
-            data => this.onInitComplete(data),
-            err => this.logError(err),
-            () => console.log('Authentication Complete')
-        );
+        // this.bucketService.getBucketLists().subscribe(
+        //     data => this.onInitComplete(data),
+        //     err => this.logError(err),
+        //     () => console.log('Authentication Complete')
+        // );
+        this.fetchbuckets();
         this.username = this.getUser()['username'];
     }
     toggle(bucketitem: BucketItem) {
@@ -59,10 +61,11 @@ export class HomeComponent implements OnInit{
         bucketitem.done = !bucketitem.done;
         this.updateItem(bucketitem, bucketitem.done);
     }
-    onSelect(bucketitem: Bucketlist) {
+    onSelect(bucketitem: Bucketlist, i: number) {
         this.visible = false;
         this.selectedBucket = bucketitem;
         this.itemcount = Object.keys(bucketitem.items).length;
+        this.index=i;
         console.log(this.selectedBucket);
     }
     logError(err: any) {
@@ -81,7 +84,9 @@ export class HomeComponent implements OnInit{
         this.visible = !this.visible;
     }
     onComplete(data: any) {
-        // this.bucketlist = data["results"];
+        this.bucketlist = data["results"];
+        this.selectedBucket = this.bucketlist[this.index];
+        this.itemcount = Object.keys(this.selectedBucket.items).length;
     }
     onInitComplete(data: any){
         this.bucketlist = data["results"];
@@ -97,7 +102,7 @@ export class HomeComponent implements OnInit{
         this.onSelect(this.selectedBucket);
     }
     onSaveItem(data: any) {
-        console.log(data["results"]);
+        console.log(data);
         this.fetchbuckets();
     }
     fetchbuckets(){
@@ -126,7 +131,8 @@ export class HomeComponent implements OnInit{
         this.fetchbuckets();
         // this.onSelect(this.selectedBucket);
     }
-    addItem(itemname: string) {
+    addItem(itemname: string,element: HTMLInputElement) {
+        element.value="";
         var token = localStorage.getItem('auth_token');
         if (token){
             this.bucketService.saveBucketItem(this.selectedBucket.id, itemname).subscribe(

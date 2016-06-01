@@ -26,8 +26,6 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        let body = JSON.stringify({ name:'Jack' });
-        console.log(body);
         return this.http.post('http://localhost:8000/api/bucketlists/' + bid + '/items/', JSON.stringify({ "name": name }), {
             headers: headers})
             .map(res => res.json());

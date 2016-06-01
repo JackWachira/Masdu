@@ -107,7 +107,8 @@ class BucketListItemView(viewsets.ModelViewSet):
             try:
                 bucket_list_item = BucketListItem.objects.create(
                     name=name, done=False, bucketlist=parent_bucket)
-                return Response({'message': 'BucketList Item created successfully'}, 201)
+                serializer = self.get_serializer(bucket_list_item)
+                return Response(serializer.data, 201)
             except IntegrityError as e:
                 return Response({'error': e.message}, 400)
         else:
