@@ -57,10 +57,10 @@
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-12 items ">
                             <ul class="col-md-12 bucket-items " *ngIf="selectedBucket ">
-                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems">
+                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items">
                                     <div class="view" [class.completed]="bucketitem.done">
                                         <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                        <label (dblclick)="enterEditMode(item)">{{bucketitem.name}}</label>
                                         <button (click)="doneClicked()" class="destroy"></button>
                                     </div>
                                 </li>
@@ -74,7 +74,7 @@
                     </div>
                     <div [hidden]="!visible" class="col-md-12 ">
                         <ul class="col-md-12 completed-items " *ngIf="selectedBucket ">
-                            <li *ngFor="let bucketitem of selectedBucket.items | doneitems">
+                            <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
                                 <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
                                     <div class="col-md-1">
                                         <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">

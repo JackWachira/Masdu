@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit{
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
     visible: boolean = false;
-
+    editMode = false;
 
     private bctlst:Bucketlist[];
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
@@ -51,9 +51,6 @@ export class HomeComponent implements OnInit{
         );
         this.username = this.getUser()['username'];
     }
-    // doneClicked() {
-    //     this.done.emit(this.item.uuid);
-    // }
     toggle(bucketitem: BucketItem) {
         bucketitem.done = !bucketitem.done;
         this.updateItem(bucketitem, bucketitem.done);
@@ -84,9 +81,7 @@ export class HomeComponent implements OnInit{
         this.visible = !this.visible;
     }
     onComplete(data: any) {
-        this.bucketlist = data["results"];
-        console.log(this.bucketlist.indexOf(this.selectedBucket, 0));
-        console.log(this.selectedBucket);
+        // this.bucketlist = data["results"];
     }
     onInitComplete(data: any){
         this.bucketlist = data["results"];
@@ -112,6 +107,13 @@ export class HomeComponent implements OnInit{
             () => console.log('Authentication Complete')
         );
     }
+    enterEditMode(element: HTMLInputElement) {
+        console.log(element);
+        this.editMode = true;
+        if (this.editMode) {
+            setTimeout(() => { element.focus(); }, 0);
+        }
+    }
     updateItem(item: BucketItem, done: boolean) {
         this.bucketService.updateItem(item.name, this.selectedBucket.id, item.id, done).subscribe(
             data => this.onUpdateComplete(data),
@@ -122,7 +124,7 @@ export class HomeComponent implements OnInit{
     onUpdateComplete(data: any){
         console.log(data);
         this.fetchbuckets();
-        this.onSelect(this.selectedBucket);
+        // this.onSelect(this.selectedBucket);
     }
     addItem(itemname: string) {
         var token = localStorage.getItem('auth_token');

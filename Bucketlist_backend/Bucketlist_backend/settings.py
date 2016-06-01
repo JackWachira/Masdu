@@ -74,7 +74,7 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=18000)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=1800000000)
 }
 
 

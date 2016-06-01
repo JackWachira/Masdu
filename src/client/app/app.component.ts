@@ -4,6 +4,7 @@ import {HomeComponent} from './home/home.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import {LandingComponent} from './landing/landing.component';
 import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
+import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 
 @Component({
     selector: 'app',
@@ -14,7 +15,7 @@ import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
 @Routes([
     {
-        path: '/',
+        path: '/#',
         component: LandingComponent
     },
     {
@@ -27,6 +28,13 @@ export class App implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit() {
-        this.router.navigate(['/']);
+        var jwtHelper = new JwtHelper();
+        var token = localStorage.getItem('auth_token');
+        console.log(jwtHelper.isTokenExpired(token));
+        if (jwtHelper.isTokenExpired(token)){
+            this.router.navigate(['/#']);
+        }else{
+            this.router.navigate(['/home']);
+        }
     }
  }

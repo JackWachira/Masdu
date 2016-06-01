@@ -25,11 +25,6 @@ export class LandingComponent implements OnInit{
       }
 
     ngOnInit() {
-        let jwt = localStorage.getItem('auth_token');
-        console.log(jwt)
-        if (jwt) {
-            // this.router.navigate(['/home']);
-        }
     }
 
     constructor(
