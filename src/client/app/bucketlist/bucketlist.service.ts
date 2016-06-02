@@ -30,6 +30,15 @@ export class BucketService {
             headers: headers})
             .map(res => res.json());
     }
+    createBucket(name: string){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
+        return this.http.post('http://localhost:8000/api/bucketlists/', JSON.stringify({ "name": name }), {
+            headers: headers
+        })
+            .map(res => res.json());
+    }
     updateItem(name:string ,bid: number, itemid: number, done: boolean): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');

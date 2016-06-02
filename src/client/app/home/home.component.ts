@@ -53,9 +53,7 @@ export class HomeComponent implements OnInit{
 
     onClose(result: ModalResult) {
         console.log(this.bucketname);
-        if (result === ModalResult.Close) {
-            console.log(this.bucketname);
-        }
+        this.createBucketList(this.bucketname);
     }
 
     open() {
@@ -70,6 +68,17 @@ export class HomeComponent implements OnInit{
         this.fetchbuckets();
         this.username = this.getUser()['username'];
         // this.openAlert();
+    }
+    onCreateBucket(data: any){
+        console.log(data);
+        this.fetchbuckets();
+    }
+    createBucketList(bucketname: string){
+        this.bucketService.createBucket(bucketname).subscribe(
+            data => this.onCreateBucket(data),
+            err => this.logError(err),
+            () => console.log('Add successful')
+        );
     }
     deleteItem(bucketitem: BucketItem){
         this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(
