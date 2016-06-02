@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { LoginComponent } from '../auth/login/login.component';
 import { SignUpComponent } from '../auth/signup/signup.component';
@@ -12,14 +12,15 @@ import {CanActivate} from '@angular/router-deprecated';
 import {DoneItemsPipe} from '../bucketlist/done-items.pipe'
 import {UnDoneItemsPipe} from '../bucketlist/undone-items.pipe'
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
+import { MODAL_DIRECTIVES, ModalComponent, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 declare var jQuery: JQueryStatic;
 
 
 
 @Component({
     selector: 'home-page',
-    providers: [BucketService, HTTP_PROVIDERS],
-    directives: [LoginComponent],
+    providers: [BucketService, HTTP_PROVIDERS, MODAL_DIRECTIVES],
+    directives: [LoginComponent, MODAL_DIRECTIVES],
     templateUrl: 'app/home/home.component.html',
     styleUrls: ['assets/css/grid.css'],
     pipes: [DoneItemsPipe,UnDoneItemsPipe]
@@ -41,10 +42,24 @@ export class HomeComponent implements OnInit{
     visible: boolean = false;
     editMode = false;
     index: number=0;
+    bucketname: string;
 
     private bctlst:Bucketlist[];
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
         this.openPage = "login";
+    }
+    @ViewChild('myModal')
+    modal: ModalComponent;
+
+    onClose(result: ModalResult) {
+        console.log(this.bucketname);
+        if (result === ModalResult.Close) {
+            console.log(this.bucketname);
+        }
+    }
+
+    open() {
+        this.modal.open();
     }
     ngOnInit(){
         // this.bucketService.getBucketLists().subscribe(
@@ -54,6 +69,7 @@ export class HomeComponent implements OnInit{
         // );
         this.fetchbuckets();
         this.username = this.getUser()['username'];
+        // this.openAlert();
     }
     deleteItem(bucketitem: BucketItem){
         this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(

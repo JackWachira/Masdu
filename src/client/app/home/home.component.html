@@ -36,7 +36,7 @@
                     </ul>
                     <div class="side-main-bottom">
                         <i class="material-icons md-24 blue">add</i>
-                        <p>Create New Bucket List</p>
+                        <p style="cursor: pointer;" (click)="open()">Create New Bucket List</p>
                     </div>
                 </div>
             </div>
@@ -106,4 +106,17 @@
                 </div>
             </div>
         </div>
+        <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Enter Bucket Name</h4>
+            </modal-header>
+            <modal-body>
+                <input #bucketitemid type="text" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
+
+            </modal-body>
+            <modal-footer>
+                <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
+            </modal-footer>
+        </modal>
     </div>
