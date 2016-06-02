@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BucketService } from '../bucketlist/bucketlist.service';
 import { Bucketlist } from '../bucketlist/bucketlist';
 import { BucketItem } from '../bucketlist/bucketitem';
+import { ItemComponent } from '../bucketlist/item.component';
 import { HTTP_PROVIDERS } from '@angular/http';
 import {CanActivate} from '@angular/router-deprecated';
 import {DoneItemsPipe} from '../bucketlist/done-items.pipe'
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit{
     @Input() hasItems: boolean = false;
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
+    @Input() public selectedCurrentText: string;
     visible: boolean = false;
     editMode = false;
     index: number=0;
@@ -52,6 +54,13 @@ export class HomeComponent implements OnInit{
         // );
         this.fetchbuckets();
         this.username = this.getUser()['username'];
+    }
+    deleteItem(bucketitem: BucketItem){
+        this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(
+            data => this.fetchbuckets(),
+            err => this.logError(err),
+            () => console.log('Authentication Complete')
+        );
     }
     toggle(bucketitem: BucketItem) {
         bucketitem.done = !bucketitem.done;
@@ -99,7 +108,7 @@ export class HomeComponent implements OnInit{
         console.log(this.selectedBucket);
         console.log("end select");
 
-        this.onSelect(this.selectedBucket);
+        this.onSelect(this.selectedBucket, 0);
     }
     onSaveItem(data: any) {
         console.log(data);
@@ -112,9 +121,33 @@ export class HomeComponent implements OnInit{
             () => console.log('Authentication Complete')
         );
     }
-    enterEditMode(element: HTMLInputElement) {
+    cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement) {
+        this.editMode = false;
+        element.style.display = "none";
+        labelitem.style.display = "block";
+    }
+
+    commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement,bucketitem:BucketItem) {
+        this.editMode = false;
+        element.style.display = "none";
+        labelitem.style.display = "block";
+        bucketitem.name = updatedText;
+        if (this.selectedCurrentText != updatedText) {
+            this.updateItem(bucketitem, bucketitem.done);
+        }
+    }
+    enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
+        // this.selectedItem = item;
         console.log(element);
-        this.editMode = true;
+        // this.editMode = true;
+        element.style.display = "block";
+        element.focus();
+        this.selectedCurrentText = selectedCurrentText;
+        // element.style.width = "100%";
+        // element.style.padding = "13px 17px 12px 17px";
+        // element.style.margin = "0 20px 0px 43px";
+        labelitem.style.display = "none";
+
         if (this.editMode) {
             setTimeout(() => { element.focus(); }, 0);
         }

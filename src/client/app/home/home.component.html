@@ -56,14 +56,26 @@
                     </div>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-12 items ">
-                            <ul class="col-md-12 bucket-items " *ngIf="selectedBucket ">
-                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items">
+                            <ul class="col-md-12 bucket-items " *ngIf="selectedBucket">
+                                <!-- <item-component *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items"
+                                [bucketitem]="bucketitem">
+                                </item-component> -->
+                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
+                                    <div #viewitem class="view" [class.completed]="bucketitem.done">
+                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
+                                        <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
+                                        <button (click)="deleteItem(bucketitem)" class="destroy"></button>
+                                    </div>
+                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
+                                </li>
+                                <!-- <li [class.editing]="editMode">
                                     <div class="view" [class.completed]="bucketitem.done">
                                         <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                        <label (dblclick)="enterEditMode(item)">{{bucketitem.name}}</label>
-                                        <button (click)="doneClicked()" class="destroy"></button>
+                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                        <button (click)="deleteItem(bucketitem)" class="destroy"></button>
                                     </div>
-                                </li>
+                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value)" (keyup.escape)="cancelEdit(todoItemInput)" (blur)="commitEdit(todoItemInput.value)">
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -79,9 +91,13 @@
                                     <div class="col-md-1">
                                         <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
                                     </div>
-                                    <div class="col-md-11">
+                                    <div class="col-md-10">
                                         <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
                                         <p>{{bucketitem.date_updated}} by {{username}}</p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <i (click)="deleteItem(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
+                                        <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
                                     </div>
                                 </div>
                             </li>
