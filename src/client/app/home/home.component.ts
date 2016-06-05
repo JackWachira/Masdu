@@ -227,6 +227,13 @@ export class HomeComponent implements OnInit{
             setTimeout(() => { element.focus(); }, 0);
         }
     }
+    deleteBucketList(){
+        this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
+            data => this.fetchbuckets(),
+            err => this.logError(err),
+            () => console.log('Authentication Complete')
+        );
+    }
     updateItem(item: BucketItem, done: boolean) {
         this.bucketService.updateItem(item.name, this.selectedBucket.id, item.id, done).subscribe(
             data => this.onUpdateComplete(data),

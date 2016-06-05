@@ -66,4 +66,13 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+    deleteBucket(bid: number): Observable<any> {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
+        return this.http.delete('http://localhost:8000/api/bucketlists/' + bid+'/', {
+            headers: headers
+        })
+            .map(res => res.json());
+    }
 }
