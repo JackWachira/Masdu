@@ -15,7 +15,7 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 
 @Routes([
     {
-        path: '/#',
+        path: '/',
         component: LandingComponent
     },
     {
@@ -30,11 +30,16 @@ export class App implements OnInit {
     ngOnInit() {
         var jwtHelper = new JwtHelper();
         var token = localStorage.getItem('auth_token');
-        console.log(jwtHelper.isTokenExpired(token));
-        if (jwtHelper.isTokenExpired(token)){
-            this.router.navigate(['/#']);
+        if(token){
+            console.log(jwtHelper.isTokenExpired(token));
+            if (jwtHelper.isTokenExpired(token)) {
+                this.router.navigate(['/']);
+            } else {
+                this.router.navigate(['/home']);
+            }
         }else{
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
         }
+
     }
  }

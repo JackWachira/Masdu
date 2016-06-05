@@ -1,6 +1,6 @@
 <div id="loginbox" style="" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
     <div [hidden]="register_success" class="alert alert-info fade in">
-        <a href="#" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
+        <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -52,10 +52,7 @@
                     <div class="col-md-12 control">
                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                             Don't have an account!
-                            <!--                             <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                           Sign Up Here
-                                       </a> -->
-                            <a href="#" (click)="showSignUp()">
+                            <a style="cursor: pointer;" (click)="showSignUp()">
                                Sign Up Here
                            </a>
                         </div>

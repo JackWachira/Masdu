@@ -4,17 +4,22 @@
             <div class="row">
                 <div class="col-md-12 side-top">
                     <div class="col-md-2" style="height: 45px; background: transparent;">
-                        <div class="person">
+                        <div style="cursor: pointer;" class="person" data-toggle="dropdown">
                             <div>
                                 <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
-                            </span></div>
+                                    </span></div>
                             </div>
                             <div style="padding-left: 10px; color: white" class="person-name js-name">{{username}}</div>
                         </div>
+                        <ul class="dropdown-menu">
+                            <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
+                            <li style="min-height: 1px;" role="separator" class="divider"></li>
+                            <li (click)="logOut()"style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
+                        </ul>
                     </div>
                     <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
                         <div class="col-md-8" id="search-box">
-                            <input type="text" class="form-control no-border input-lg" id="search-input">
+                            <input #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
                         </div>
                         <div class="col-md-4">
                             <!-- <span class="col-md-4 glyphicon glyphicon-search" id="search-icon"></span> -->
@@ -26,12 +31,15 @@
             <div class="row">
                 <div class="col-md-12 side-main">
                     <ul class="buckets">
-                        <li *ngFor="let bucket of bucketlist; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
-                            <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
-                            <div *ngIf="bucket === selectedBucket" class="bucket-ops">
-                                <p style="font-size: 10px">{{itemcount}}</p>
-                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                        <li *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
+                            <div #bname class="view">
+                                <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
+                                <div *ngIf="bucket === selectedBucket" class="bucket-ops">
+                                    <p style="font-size: 10px">{{itemcount}}</p>
+                                    <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                </div>
                             </div>
+                            <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
                         </li>
                     </ul>
                     <div class="side-main-bottom">
@@ -45,6 +53,20 @@
             <div class="row">
                 <div class="col-md-12 content-top">
                     <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
+                    <div class="bucketactions">
+                        <div class="editactions">
+                            <div class="content">
+                                <i style="color: #dae3ef;" (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="row fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                                <span>Update</span>
+                            </div>
+                        </div>
+                        <div class="editactions">
+                            <div class="content">
+                                <i style="color: #dae3ef;" class="row fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row scrollable">
@@ -57,25 +79,14 @@
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-12 items ">
                             <ul class="col-md-12 bucket-items " *ngIf="selectedBucket">
-                                <!-- <item-component *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items"
-                                [bucketitem]="bucketitem">
-                                </item-component> -->
                                 <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
                                     <div #viewitem class="view" [class.completed]="bucketitem.done">
                                         <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                         <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
                                         <button (click)="deleteItem(bucketitem)" class="destroy"></button>
                                     </div>
-                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
+                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
                                 </li>
-                                <!-- <li [class.editing]="editMode">
-                                    <div class="view" [class.completed]="bucketitem.done">
-                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
-                                        <button (click)="deleteItem(bucketitem)" class="destroy"></button>
-                                    </div>
-                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value)" (keyup.escape)="cancelEdit(todoItemInput)" (blur)="commitEdit(todoItemInput.value)">
-                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -112,7 +123,6 @@
             </modal-header>
             <modal-body>
                 <input #bucketitemid type="text" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
-
             </modal-body>
             <modal-footer>
                 <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>

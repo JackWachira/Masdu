@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { LoginComponent } from '../auth/login/login.component';
 import { SignUpComponent } from '../auth/signup/signup.component';
@@ -11,6 +11,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import {CanActivate} from '@angular/router-deprecated';
 import {DoneItemsPipe} from '../bucketlist/done-items.pipe'
 import {UnDoneItemsPipe} from '../bucketlist/undone-items.pipe'
+import {SearchPipe} from '../bucketlist/search.pipe'
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 import { MODAL_DIRECTIVES, ModalComponent, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 declare var jQuery: JQueryStatic;
@@ -23,7 +24,7 @@ declare var jQuery: JQueryStatic;
     directives: [LoginComponent, MODAL_DIRECTIVES],
     templateUrl: 'app/home/home.component.html',
     styleUrls: ['assets/css/grid.css'],
-    pipes: [DoneItemsPipe,UnDoneItemsPipe]
+    pipes: [DoneItemsPipe, UnDoneItemsPipe, SearchPipe]
 })
 
 
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit{
     @Input() bucket: Bucketlist;
     @Input() itemcount: number;
     @Input() username: any;
+    @Input() email: any;
+    @Input() querystring: any;
     @Input() hasItems: boolean = false;
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
@@ -43,6 +46,7 @@ export class HomeComponent implements OnInit{
     editMode = false;
     index: number=0;
     bucketname: string;
+
 
     private bctlst:Bucketlist[];
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
@@ -55,19 +59,28 @@ export class HomeComponent implements OnInit{
         console.log(this.bucketname);
         this.createBucketList(this.bucketname);
     }
+    onKey(value: string) {
+        this.querystring = value;
+        console.log(this.querystring);
+    }
 
     open() {
         this.modal.open();
     }
     ngOnInit(){
-        // this.bucketService.getBucketLists().subscribe(
-        //     data => this.onInitComplete(data),
-        //     err => this.logError(err),
-        //     () => console.log('Authentication Complete')
-        // );
-        this.fetchbuckets();
-        this.username = this.getUser()['username'];
-        // this.openAlert();
+        var token = localStorage.getItem('auth_token');
+        if (token) {
+            this.fetchbuckets();
+            this.username = this.getUser()['username'];
+            this.email = this.getUser()['email'];
+            this.querystring = "";
+        }else{
+            this._router.navigate(['/']);
+        }
+    }
+    logOut(){
+        localStorage.removeItem('auth_token');
+        this._router.navigate(['/']);
     }
     onCreateBucket(data: any){
         console.log(data);
@@ -106,7 +119,7 @@ export class HomeComponent implements OnInit{
         console.log(err);
         if(err['status']==403){
             console.log(err['_body']);
-            this._router.navigate(['/']);
+            this._router.navigate(['/#']);
         }
     }
     getUser(){
@@ -146,10 +159,11 @@ export class HomeComponent implements OnInit{
             () => console.log('Authentication Complete')
         );
     }
-    cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement) {
+    cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
         this.editMode = false;
         element.style.display = "none";
         labelitem.style.display = "block";
+        this.selectedBucket = bucket;
     }
 
     commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement,bucketitem:BucketItem) {
@@ -161,18 +175,39 @@ export class HomeComponent implements OnInit{
             this.updateItem(bucketitem, bucketitem.done);
         }
     }
+    updateBucket(bucket: Bucketlist, name: string){
+        this.bucketService.updateBucket(name, bucket.id).subscribe(
+            data => this.onUpdateComplete(data),
+            err => this.logError(err),
+            () => console.log('Authentication Complete')
+        );
+    }
+    commitEditBucketList(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
+        this.editMode = false;
+        element.style.display = "none";
+        labelitem.style.display = "block";
+        bucket.name = updatedText;
+        this.selectedBucket = bucket;
+        if (this.selectedCurrentText != updatedText) {
+            this.updateBucket(bucket, updatedText);
+        }
+    }
     enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
-        // this.selectedItem = item;
         console.log(element);
-        // this.editMode = true;
         element.style.display = "block";
         element.focus();
         this.selectedCurrentText = selectedCurrentText;
-        // element.style.width = "100%";
-        // element.style.padding = "13px 17px 12px 17px";
-        // element.style.margin = "0 20px 0px 43px";
         labelitem.style.display = "none";
-
+        if (this.editMode) {
+            setTimeout(() => { element.focus(); }, 0);
+        }
+    }
+    editModeBucket(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
+        console.log(element);
+        element.style.display = "block";
+        element.focus();
+        this.selectedCurrentText = selectedCurrentText;
+        labelitem.style.display = "none";
         if (this.editMode) {
             setTimeout(() => { element.focus(); }, 0);
         }
