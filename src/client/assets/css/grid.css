@@ -692,7 +692,7 @@ ul.completed-items li {
 .bucketactions {
     width: 100px;
     float: right;
-    padding: 10px;
+    padding: 5px 10px 10px 0px;
     display: table;
     text-align: center;
 }
@@ -713,6 +713,7 @@ ul.completed-items li {
 .editactions .content {
     display: table-cell;
     vertical-align: middle;
+    float: right;
 }
 
 .editactions .content span {
