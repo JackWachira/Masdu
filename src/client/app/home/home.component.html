@@ -9,21 +9,21 @@
                                 <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
                                     </span></div>
                             </div>
-                            <div style="padding-left: 10px; color: white" class="person-name js-name">{{username}}</div>
+                            <div #user style="padding-left: 10px; color: white;" class="person-name js-name">{{username}}</div>
                         </div>
                         <ul class="dropdown-menu">
                             <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
                             <li style="min-height: 1px;" role="separator" class="divider"></li>
-                            <li (click)="logOut()"style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
+                            <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
                         </ul>
                     </div>
                     <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
                         <div class="col-md-8" id="search-box">
-                            <input #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
+                            <input style="display: none;" (keyup.escape)="closesearch(user,filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
                         </div>
                         <div class="col-md-4">
-                            <!-- <span class="col-md-4 glyphicon glyphicon-search" id="search-icon"></span> -->
-                            <i class="material-icons md-24 md-light">search</i>
+                            <i #searchicon style="cursor: pointer;" (click)="entersearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
+                            <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
                         </div>
                     </div>
                 </div>
