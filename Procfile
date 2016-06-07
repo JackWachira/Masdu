@@ -1,1 +1,1 @@
-npm serve.prod
+npm run serve.prod
