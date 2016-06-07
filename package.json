@@ -23,7 +23,6 @@
     "serve.dev": "gulp serve.dev --color",
     "serve.e2e": "gulp serve.e2e --color",
     "serve.prod": "gulp serve.prod --color",
-    "start": "gulp serve.dev --color",
     "tasks.list": "gulp --tasks-simple --color",
     "test": "gulp test --color",
     "e2e.ci": "gulp build.prod --color && gulp build.js.e2e --color && gulp e2e --color",
