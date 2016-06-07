@@ -5,8 +5,8 @@ import { BucketItem } from '../bucketlist/bucketitem';
 
 @Component({
     selector: 'item-component',
-    templateUrl: 'app/bucketlist/item.html',
-    styleUrls: ['assets/css/item.component.css'],
+    templateUrl: 'item.html',
+    styleUrls: ['item.component.css'],
 })
 export class ItemComponent implements OnInit {
     @Input() bucketitem: BucketItem;

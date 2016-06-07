@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'login-form',
+    moduleId: module.id,
     providers: [AuthenticationService, DisplayService, Http, HTTP_PROVIDERS],
-    templateUrl: 'app/auth/login/login.component.html',
-    styleUrls: ['assets/css/login.css'],
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.css'],
 })
 
 export class LoginComponent implements OnInit {

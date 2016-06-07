@@ -6,9 +6,10 @@ import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
 
 @Component({
     selector: 'register-form',
+    moduleId: module.id,
     providers: [AuthenticationService, DisplayService, Http, HTTP_PROVIDERS],
-    templateUrl: 'app/auth/signup/signup.component.html',
-    styleUrls: ['assets/css/login.css']
+    templateUrl: 'signup.component.html',
+    styleUrls: ['login.css']
 })
 
 export class SignUpComponent {

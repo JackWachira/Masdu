@@ -8,9 +8,10 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'landing-page',
     providers: [AuthenticationService],
+    moduleId: module.id,
     directives: [LoginComponent,SignUpComponent],
-    templateUrl: 'app/landing/landing.component.html',
-    styleUrls: ['assets/css/landing.component.css'],
+    templateUrl: 'landing.component.html',
+    styleUrls: ['landing.component.css'],
 })
 export class LandingComponent implements OnInit{
     login: boolean = true;

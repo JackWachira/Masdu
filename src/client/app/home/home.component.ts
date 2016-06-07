@@ -22,8 +22,9 @@ declare var jQuery: JQueryStatic;
     selector: 'home-page',
     providers: [BucketService, HTTP_PROVIDERS, MODAL_DIRECTIVES],
     directives: [LoginComponent, MODAL_DIRECTIVES],
-    templateUrl: 'app/home/home.component.html',
-    styleUrls: ['assets/css/grid.css'],
+    moduleId: module.id,
+    templateUrl: 'home.component.html',
+    styleUrls: ['grid.css'],
     pipes: [DoneItemsPipe, UnDoneItemsPipe, SearchPipe]
 })
 

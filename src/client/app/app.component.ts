@@ -9,8 +9,9 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 @Component({
     selector: 'app',
     directives: [LoginComponent, ROUTER_DIRECTIVES],
-    templateUrl: 'app/app.component.html',
-    styleUrls: ['assets/css/app.component.css'],
+    moduleId: module.id,
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css'],
 })
 
 @Routes([
