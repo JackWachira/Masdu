@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         var params = "username=" + email + "&password=" + password;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        this.http.post('http://localhost:8000/api/auth/login/', params, {
+        this.http.post('https://masduapi.herokuapp.com/api/auth/login/', params, {
             headers: headers
         })
             .map(res => res.json())
