@@ -18,13 +18,13 @@
     "gulp": "gulp",
     "karma": "karma",
     "karma.start": "karma start",
-    "postinstall": "gulp check.versions && gulp webdriver",
+    "postinstall": "typings install && gulp check.versions && npm prune && gulp webdriver",
     "reinstall": "npm cache clean && npm install",
     "serve.coverage": "remap-istanbul -b src/ -i coverage/coverage-final.json -o coverage -t html && npm run gulp -- serve.coverage --color",
     "serve.dev": "gulp serve.dev --color",
     "serve.e2e": "gulp serve.e2e --color",
     "serve.prod": "gulp serve.prod --color",
-    "start": "gulp serve.prod --color",
+    "start": "gulp serve.dev --color",
     "tasks.list": "gulp --tasks-simple --color",
     "test": "gulp test --color",
     "e2e.ci": "gulp build.prod --color && gulp build.js.e2e --color && gulp e2e --color",
@@ -35,25 +35,25 @@
   },
   "author": "Minko Gechev <mgechev>",
   "license": "MIT",
-  "dependencies": {
-    "@angular/common": "2.0.0-rc.1",
-    "@angular/compiler": "2.0.0-rc.1",
-    "@angular/core": "2.0.0-rc.1",
-    "@angular/http": "2.0.0-rc.1",
-    "@angular/platform-browser": "2.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
-    "@angular/router": "2.0.0-rc.1",
-    "@angular/router-deprecated": "^2.0.0-rc.1",
-    "angular2-modal": "^1.0.2",
-    "es6-module-loader": "^0.17.8",
-    "es6-promise": "^3.1.2",
-    "es6-shim": "0.35.0",
-    "ng2-bootstrap": "^1.0.17",
-    "ng2-bs3-modal": "^0.6.1",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.6",
-    "systemjs": "0.19.26",
-    "zone.js": "^0.6.12",
+  "devDependencies": {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "async": "^1.4.2",
     "autoprefixer": "^6.3.6",
     "browser-sync": "^2.11.2",
@@ -128,5 +128,26 @@
     "vinyl-source-stream": "^1.1.0",
     "walk": "^2.3.9",
     "yargs": "^4.2.0"
+  },
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "^2.0.0-rc.1",
+    "angular2-modal": "^1.0.2",
+    "es6-module-loader": "^0.17.8",
+    "es6-promise": "^3.1.2",
+    "es6-shim": "0.35.0",
+    "ng2-bootstrap": "^1.0.17",
+    "ng2-bs3-modal": "^0.6.1",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.6",
+    "systemjs": "0.19.26",
+    "zone.js": "^0.6.12"
   }
 }
+
