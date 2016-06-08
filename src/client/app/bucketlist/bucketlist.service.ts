@@ -17,7 +17,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.get('http://localhost:8000/api/bucketlists/', {
+        return this.http.get('https://masduapi.herokuapp.com/api/bucketlists/', {
             headers: headers
         })
             .map(res => res.json());
@@ -26,7 +26,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.post('http://localhost:8000/api/bucketlists/' + bid + '/items/', JSON.stringify({ "name": name }), {
+        return this.http.post('https://masduapi.herokuapp.com/api/bucketlists/' + bid + '/items/', JSON.stringify({ "name": name }), {
             headers: headers})
             .map(res => res.json());
     }
@@ -34,7 +34,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.post('http://localhost:8000/api/bucketlists/', JSON.stringify({ "name": name }), {
+        return this.http.post('https://masduapi.herokuapp.com/api/bucketlists/', JSON.stringify({ "name": name }), {
             headers: headers
         })
             .map(res => res.json());
@@ -43,7 +43,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.put('http://localhost:8000/api/bucketlists/' + bid + '/items/' + itemid + '/', JSON.stringify({ 'name': name , 'done': done}), {
+        return this.http.put('https://masduapi.herokuapp.com/api/bucketlists/' + bid + '/items/' + itemid + '/', JSON.stringify({ 'name': name, 'done': done }), {
             headers: headers
         })
             .map(res => res.json());
@@ -52,7 +52,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.put('http://localhost:8000/api/bucketlists/' + bid + '/', JSON.stringify({ 'name': name}), {
+        return this.http.put('https://masduapi.herokuapp.com/api/bucketlists/' + bid + '/', JSON.stringify({ 'name': name }), {
             headers: headers
         })
             .map(res => res.json());
@@ -61,7 +61,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.delete('http://localhost:8000/api/bucketlists/' + bid + '/items/' + itemid + '/', {
+        return this.http.delete('https://masduapi.herokuapp.com/api/bucketlists/' + bid + '/items/' + itemid + '/', {
             headers: headers
         })
             .map(res => res.json());
@@ -70,7 +70,7 @@ export class BucketService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
-        return this.http.delete('http://localhost:8000/api/bucketlists/' + bid+'/', {
+        return this.http.delete('https://masduapi.herokuapp.com/api/bucketlists/' + bid + '/', {
             headers: headers
         })
             .map(res => res.json());
