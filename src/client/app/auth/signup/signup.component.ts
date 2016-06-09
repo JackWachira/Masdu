@@ -20,7 +20,7 @@ export class SignUpComponent {
     constructor(
         private _service:AuthenticationService, public http: Http, private _displservice:DisplayService) {}
 
-    model = new User(1, "jackmwa94@gmail.com","passw", "Jack")
+    model = new User(1, "","", "")
     submitted = false;
     correct = true;
     @Input() userobj:any;

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     correct = true;
     @Input() userobj:any;
     public arrayOfKeys:any;
-    model = new User(1, "jackmwa94@gmail.com","passw", "Jack")
+    model = new User(1, "","", "")
 
     submitted = false;
     onSubmit() {
