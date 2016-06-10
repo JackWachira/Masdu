@@ -147,12 +147,13 @@ export class HomeComponent implements OnInit{
         this.visible = !this.visible;
     }
     onComplete(data: any) {
-        this.bucketlist = data["results"];
+        console.log(data);
+        this.bucketlist = data;
         this.selectedBucket = this.bucketlist[this.index];
         this.itemcount = Object.keys(this.selectedBucket.items).length;
     }
     onInitComplete(data: any){
-        this.bucketlist = data["results"];
+        this.bucketlist = data;
         console.log(this.bucketlist);
         console.log("start select");
         console.log(this.selectedBucket);
