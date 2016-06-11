@@ -1,126 +1,125 @@
-<div class="main">
-    <div class="page">
-        <div class="col-md-3 no-float">
-            <div class="row">
-                <div class="col-md-12 side-top">
-                    <div class="col-md-2" style="height: 45px; background: transparent;">
-                        <div style="cursor: pointer;" class="person" data-toggle="dropdown">
-                            <div>
-                                <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
+<div class="page">
+    <div class="col-md-3 no-float">
+        <div class="row">
+            <div class="col-md-12 side-top">
+                <div class="col-md-2" style="height: 45px; background: transparent;">
+                    <div style="cursor: pointer;" class="person" data-toggle="dropdown">
+                        <div>
+                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
                                     </span></div>
-                            </div>
-                            <div #user style="padding-left: 10px; color: white;" class="person-name js-name">{{username}}</div>
                         </div>
-                        <ul class="dropdown-menu">
-                            <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
-                            <li style="min-height: 1px;" role="separator" class="divider"></li>
-                            <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
-                        </ul>
+                        <div #user style="padding-left: 10px; color: white;" class="person-name js-name">{{username}}</div>
                     </div>
-                    <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
-                        <div class="col-md-8" id="search-box">
-                            <input style="display: none;" (keyup.escape)="closesearch(user,filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
-                        </div>
-                        <div class="col-md-4">
-                            <i #searchicon style="cursor: pointer;" (click)="entersearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
-                            <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 side-main">
-                    <ul class="buckets">
-                        <li *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
-                            <div #bname class="view">
-                                <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
-                                <div *ngIf="bucket === selectedBucket" class="bucket-ops">
-                                    <p style="font-size: 10px">{{itemcount}}</p>
-                                    <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
-                        </li>
+                    <ul class="dropdown-menu">
+                        <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
+                        <li style="min-height: 1px;" role="separator" class="divider"></li>
+                        <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
                     </ul>
-                    <div class="side-main-bottom">
-                        <i class="material-icons md-24 blue">add</i>
-                        <p style="cursor: pointer;" (click)="open()">Create New Bucket List</p>
+                </div>
+                <div class="col-md-10 search-block" style="height: 45px; background: transparent;">
+                    <div class="col-md-8" id="search-box">
+                        <input style="display: none;" (keyup.escape)="closesearch(user,filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
+                    </div>
+                    <div class="col-md-4">
+                        <i #searchicon style="cursor: pointer;" (click)="entersearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
+                        <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-9 no-float">
-            <div class="row">
-                <div class="col-md-12 content-top">
-                    <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
-                    <div class="bucketactions">
-                        <div class="editactions">
-                            <div style="cursor: pointer;" class="content">
-                                <i (click)="deleteBucketList()"style="color: #dae3ef;" class="row fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                <span>Delete</span>
+        <div class="row">
+            <div class="col-md-12 side-main">
+                <ul class="buckets">
+                    <li *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
+                        <div #bname class="view">
+                            <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
+                            <div *ngIf="bucket === selectedBucket" class="bucket-ops">
+                                <p style="font-size: 10px">{{itemcount}}</p>
+                                <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                             </div>
+                        </div>
+                        <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
+                    </li>
+                </ul>
+                <div class="side-main-bottom">
+                    <i class="material-icons md-24 blue">add</i>
+                    <p style="cursor: pointer;" (click)="open()">Create New Bucket List</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 no-float">
+        <div class="row">
+            <div class="col-md-12 content-top">
+                <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
+                <div class="bucketactions">
+                    <div class="editactions">
+                        <div style="cursor: pointer;" class="content">
+                            <i (click)="deleteBucketList()" style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                            <span>Delete</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row scrollable">
-                <div class="col-md-12 content-main">
-                    <div class="row">
-                        <div class="col-md-12 input-group input-group-lg" id="add-item">
-                            <input #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
-                        </div>
+        </div>
+        <div class="row scrollable">
+            <div class="col-md-12 content-main">
+                <div class="row">
+                    <div class="col-md-12 input-group input-group-lg" id="add-item">
+                        <input #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
                     </div>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12 items ">
-                            <ul class="col-md-12 bucket-items " *ngIf="selectedBucket">
-                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
-                                    <div #viewitem class="view" [class.completed]="bucketitem.done">
-                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                        <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
-                                        <button (click)="deleteItem(bucketitem)" class="destroy"></button>
-                                    </div>
-                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div (click)="showCompleted()" class="panel panel-default" id="showcompleted">
-                        <div class="panel-body">
-                            SHOW COMPLETED ITEMS
-                        </div>
-                    </div>
-                    <div [hidden]="!visible" class="col-md-12 ">
-                        <ul class="col-md-12 completed-items " *ngIf="selectedBucket ">
-                            <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
-                                <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
-                                    <div class="col-md-1">
-                                        <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
-                                        <p>{{bucketitem.date_updated}} by {{username}}</p>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <i (click)="deleteItem(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
-                                        <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
-                                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12 items ">
+                        <ul class="col-md-12 bucket-items " *ngIf="selectedBucket">
+                            <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
+                                <div #viewitem class="view" [class.completed]="bucketitem.done">
+                                    <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
+                                    <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
+                                    <button (click)="deleteItem(bucketitem)" class="destroy"></button>
                                 </div>
+                                <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
                             </li>
                         </ul>
                     </div>
                 </div>
+                <div (click)="showCompleted()" class="panel panel-default" id="showcompleted">
+                    <div class="panel-body">
+                        SHOW COMPLETED ITEMS
+                    </div>
+                </div>
+                <div [hidden]="!visible" class="col-md-12 ">
+                    <ul class="col-md-12 completed-items " *ngIf="selectedBucket ">
+                        <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
+                            <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
+                                <div class="col-md-1">
+                                    <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
+                                </div>
+                                <div class="col-md-10">
+                                    <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                    <p>{{bucketitem.date_updated}} by {{username}}</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <i (click)="deleteItem(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
+                                    <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
-            <modal-header [show-close]="true">
-                <h4 class="modal-title">Enter Bucket Name</h4>
-            </modal-header>
-            <modal-body>
-                <input #bucketitemid type="text" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
-            </modal-body>
-            <modal-footer>
-                <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
-            </modal-footer>
-        </modal>
     </div>
+    <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">Enter Bucket Name</h4>
+        </modal-header>
+        <modal-body>
+            <input #bucketitemid type="text" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
+        </modal-body>
+        <modal-footer>
+            <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+            <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
+        </modal-footer>
+    </modal>
+</div>
