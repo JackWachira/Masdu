@@ -1,11 +1,11 @@
-<div id="loginbox" style="" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
+<div id="loginbox" class="mainbox col-sm-6 col-sm-pull-6">
     <div [hidden]="register_success" class="alert alert-info fade in">
         <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">Sign In</div>
-            <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+<!--             <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
         </div>
         <div style="padding-top:30px" class="panel-body">
             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
@@ -34,18 +34,10 @@
                         Password is required
                     </div>
                 </div>
-                <div class="input-group">
-                    <div class="checkbox">
-                        <label>
-                            <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                        </label>
-                    </div>
-                </div>
                 <div style="margin-top:10px" class="form-group">
                     <!-- Button -->
                     <div class="col-sm-12 controls">
-                        <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Login</button>
-                        <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+                        <button type="submit" class="btn btn-block btn-success" [disabled]="!loginForm.form.valid">Login</button>
                     </div>
                 </div>
                 <div class="form-group">

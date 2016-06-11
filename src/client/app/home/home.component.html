@@ -56,7 +56,7 @@
                 <i (click)="togglenav($event)" id="more_vert" style="cursor: pointer;" class="material-icons md-24 blue">more_vert</i>
                 <div style="cursor: pointer;" (click)="open()" class="side-main-bottom">
                     <i class="material-icons md-24 blue">add</i>
-                    <p >Create New Bucket List</p>
+                    <p>Create New Bucket List</p>
                 </div>
             </div>
         </div>
@@ -67,10 +67,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 content-top">
-                    <div class="col-xs-10">
+                    <div class="col-xs-10" style="float: none;">
                         <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
                     </div>
-                    <div class="col-xs-2 bucketactions">
+                    <div class="col-xs-2 bucketactions" style="float: right;">
                         <div class="editactions">
                             <div style="cursor: pointer;" class="content">
                                 <i (click)="deleteBucketList()" style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
@@ -81,15 +81,18 @@
                 </div>
             </div>
             <div class="row scrollable">
-                <div class="col-md-12 content-main">
+                <div class="col-md-12 col-xs-12 content-main">
                     <div class="row">
-                        <div class="col-md-12 input-group input-group-lg" id="add-item">
-                            <input #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
+                        <div class="col-md-12 col-xs-12 form-group form-group-lg" id="add-item">
+                            <div class="inner-addon right-addon">
+                                <i (click)="addItem(item.value,item)" style="color: white;cursor: pointer;" class="material-icons">add</i>
+                                <input #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
+                            </div>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12 items ">
-                            <ul class="col-md-12 bucket-items " *ngIf="selectedBucket">
+                        <div class="col-md-12 col-xs-12 items ">
+                            <ul class="col-md-12 col-xs-12 bucket-items " *ngIf="selectedBucket">
                                 <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
                                     <div #viewitem class="view" [class.completed]="bucketitem.done">
                                         <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
@@ -106,18 +109,18 @@
                             SHOW COMPLETED ITEMS
                         </div>
                     </div>
-                    <div [hidden]="!visible" class="col-md-12 ">
-                        <ul class="col-md-12 completed-items " *ngIf="selectedBucket ">
+                    <div [hidden]="!visible" class="col-md-12 col-xs-12">
+                        <ul class="col-md-12 col-xs-12 completed-items " *ngIf="selectedBucket ">
                             <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
                                 <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
-                                    <div class="col-md-1">
+                                    <div class="col-md-1 col-xs-2">
                                         <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-10 col-xs-9">
                                         <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
                                         <p>{{bucketitem.date_updated}} by {{username}}</p>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1 col-xs-1">
                                         <i (click)="deleteItem(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
                                         <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
                                     </div>

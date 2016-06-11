@@ -155,6 +155,7 @@ header {
     background: #5f83ba;
     height: 45px;
     margin-top: 0;
+    overflow: hidden;
 }
 
 .content-top #title {
@@ -436,13 +437,14 @@ p {
 #add-item input {
     font-family: latto_medium;
     font-size: 20px;
+    min-height: 30px;
     font-weight: lighter;
-    background: #feffe;
-    color: black;
+    background: rgba(136, 163, 204, 0.5);
+    color: white;
     outline: 0;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     -moz-box-shadow: 2px 2px 3px #666;
     -webkit-box-shadow: 2px 2px 3px #666;
     box-shadow: 2px 2px 3px #666;
@@ -708,13 +710,6 @@ ul.completed-items li {
 }
 
 
-/*!
- * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-
-
 /* Toggle Styles */
 
 #wrapper {
@@ -724,7 +719,8 @@ ul.completed-items li {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     min-height: 100%;
-    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)), url(assets/img/masdu3.jpg);
+    background-image: -webkit-linear-gradient(top, rgba(95,131,186,0.3), rgba(130, 85, 74, 0.3)),url(assets/img/masdubg5.jpg);
+    /*background-image: url(assets/img/masdubg5.jpg);*/
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -757,7 +753,7 @@ ul.completed-items li {
 
 #page-content-wrapper {
     width: 100%;
-    position: relative;
+    position: absolute;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -767,7 +763,6 @@ ul.completed-items li {
 
 
 /* Sidebar Styles */
-
 
 @media(min-width:320px) {
     .person-small {
@@ -785,7 +780,7 @@ ul.completed-items li {
         margin-top: 7.5px;
         margin-left: 1px;
     }
-    #wrapper.toggled .side-main-bottom{
+    #wrapper.toggled .side-main-bottom {
         border: none;
     }
     #wrapper.toggled .side-main-bottom p {
@@ -831,4 +826,41 @@ ul.completed-items li {
         position: relative;
         padding-left: 30px;
     }
+}
+
+
+/* enable absolute positioning */
+
+.inner-addon {
+    position: relative;
+}
+
+
+/* style glyph */
+
+.inner-addon .material-icons {
+    position: absolute;
+    padding: 10px;
+}
+
+
+/* align glyph */
+
+.left-addon .material-icons {
+    left: 0px;
+}
+
+.right-addon .material-icons {
+    right: 0px;
+}
+
+
+/* add padding  */
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
 }

@@ -62,6 +62,7 @@ header .display-2 {
 }
 
 blockquote {
+    margin-top: 20px;
     border: none;
     font-family: Georgia, "Times New Roman", Times, serif;
     margin-bottom: -30px;
@@ -75,17 +76,6 @@ blockquote h3 {
     font-size: 21px;
 }
 
-blockquote h3:before {
-    content: "\201C";
-    font-weight: bold;
-    font-size: 100px;
-    color: #32c4f0;
-    position: absolute;
-    top: -0.2em;
-    left: -0.5em;
-    font-family: 'Georgia';
-}
-
 blockquote cite {
     color: #999999;
     font-size: 14px;
@@ -97,6 +87,19 @@ blockquote cite:before {
     content: "\2014 \2009";
 }
 
-.alert{
+.alert {
     width: 300px;
+}
+
+@media(max-width:440px) {
+    #logo-img {
+        margin-top: 0;
+        vertical-align: top;
+    }
+    #quote {
+        display: none;
+    }
+    #size-banner {
+        padding-top: 0px;
+    }
 }

@@ -18,7 +18,10 @@ span {
 }
 
 .panel-heading {
-    background-color: #32c4f0
+    background-color: rgb(30, 95, 134);
+}
+
+.panel-body {
 }
 
 .panel-title {
@@ -26,17 +29,21 @@ span {
 }
 
 .panel {
-    background-color: transparent;
-    margin-top: 10%
+    /*background-color: transparent;*/
+    margin-top: 10%;
 }
 
 .ng-valid[required] {
-  border-left: 10px solid #42A948; /* green */
+    border-left: 10px solid #42A948;
+    /* green */
 }
+
 .ng-invalid {
-  border-left: 10px solid #a94442; /* red */
+    border-left: 10px solid #a94442;
+    /* red */
 }
-.form-group{
+
+.form-group {
     padding-left: 20px;
     padding-right: 20px;
 }
