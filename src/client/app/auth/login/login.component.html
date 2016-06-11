@@ -1,4 +1,4 @@
-<div id="loginbox" class="mainbox col-sm-6 col-sm-pull-6">
+<div id="loginbox" class="mainbox col-sm-6 col-sm-pull-6 col-xs-12">
     <div [hidden]="register_success" class="alert alert-info fade in">
         <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
     </div>
@@ -44,7 +44,7 @@
                     <div class="col-md-12 control">
                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                             Don't have an account!
-                            <a style="cursor: pointer;" (click)="showSignUp()">
+                            <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">
                                Sign Up Here
                            </a>
                         </div>

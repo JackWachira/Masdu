@@ -357,6 +357,7 @@ p {
     display: inline;
     float: right;
     font-size: 10px;
+    margin-right: 30px;
 }
 
 .bucket-ops i {
