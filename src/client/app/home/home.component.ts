@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     openPage: string;
     editing = false;
     nobuckets = false;
+    noitems = false;
     @Input() bucketlist: Bucketlist[];
     @Input() bucketitem: BucketItem[];
     @Input() bucket: Bucketlist;
@@ -140,6 +141,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.visible = false;
         this.selectedBucket = bucketitem;
         this.itemcount = Object.keys(bucketitem.items).length;
+        if(this.itemcount > 0){
+            this.noitems = false;
+        }else{
+            this.noitems = true;
+        }
         this.index=i;
         console.log(this.selectedBucket);
     }

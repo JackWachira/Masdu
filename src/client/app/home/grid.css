@@ -717,6 +717,15 @@ ul.completed-items li {
     font-family: latto_medium;
     margin: 0px 10px 0px 10px;
 }
+.no-items {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: latto_medium;
+    margin: 0px 10px 0px 10px;
+    color: white;
+}
 
 
 /* Toggle Styles */

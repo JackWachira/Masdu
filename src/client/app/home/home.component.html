@@ -117,10 +117,13 @@
                                     <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
                                 </li>
                             </ul>
+                            <div class="no-items" *ngIf="noitems">
+                                There are no items to display. Add a new one.
+                            </div>
                         </div>
                     </div>
-                    <div (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
-                        <div class="panel-body">
+                    <div *ngIf="!noitems" (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
+                        <div  class="panel-body">
                             <p #togglep class="noselect">SHOW COMPLETED ITEMS</p>
                         </div>
                     </div>
