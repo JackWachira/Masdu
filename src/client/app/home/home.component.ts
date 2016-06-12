@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContainerRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { LoginComponent } from '../auth/login/login.component';
 import { SignUpComponent } from '../auth/signup/signup.component';
@@ -29,7 +29,7 @@ declare var jQuery: JQueryStatic;
 })
 
 
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, AfterViewInit {
     openPage: string;
     editing = false;
     nobuckets = false;
@@ -43,19 +43,28 @@ export class HomeComponent implements OnInit{
     @Input() hasItems: boolean = false;
     currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
+    @Input() public selectdeleteItem: BucketItem;
     @Input() public selectedCurrentText: string;
     visible: boolean = false;
     editMode = false;
     index: number=0;
     bucketname: string;
 
-
     private bctlst:Bucketlist[];
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
         this.openPage = "login";
+
     }
+
     @ViewChild('myModal')
     modal: ModalComponent;
+
+    @ViewChild('modalconfirm')
+    confirmmodal: ModalComponent;
+
+    @ViewChild('modalconfirmitem')
+    confirmmodalitem: ModalComponent;
+
 
     onClose(result: ModalResult) {
         console.log(this.bucketname);
@@ -85,6 +94,7 @@ export class HomeComponent implements OnInit{
         this.modal.open();
     }
     ngOnInit(){
+
         var token = localStorage.getItem('auth_token');
         if (token) {
             this.fetchbuckets();
@@ -110,7 +120,8 @@ export class HomeComponent implements OnInit{
             () => console.log('Add successful')
         );
     }
-    deleteItem(bucketitem: BucketItem){
+    deleteItem(){
+        var bucketitem = this.selectdeleteItem;
         this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(
             data => this.fetchbuckets(),
             err => this.logError(err),
@@ -236,6 +247,13 @@ export class HomeComponent implements OnInit{
         if (this.editMode) {
             setTimeout(() => { element.focus(); }, 0);
         }
+    }
+    deletetrigger(){
+        this.confirmmodal.open();
+    }
+    deleteitemtrigger(selectdeleteItem: BucketItem) {
+        this.selectdeleteItem = selectdeleteItem
+        this.confirmmodalitem.open();
     }
     deleteBucketList(){
         this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(

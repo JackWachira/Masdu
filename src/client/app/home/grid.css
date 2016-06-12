@@ -798,8 +798,8 @@ ul.completed-items li {
     #wrapper.toggled .side-main-bottom p {
         display: none;
     }
-    #wrapper.toggled .side-main-bottom 1 {
-        margin-left: 10px;
+    #wrapper.toggled .side-main-bottom i {
+        margin-left: 4px;
     }
     #more_vert {
         display: none;

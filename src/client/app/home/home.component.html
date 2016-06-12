@@ -75,8 +75,8 @@
                     </div>
                     <div class="col-xs-2 bucketactions" style="float: right;">
                         <div class="editactions">
-                            <div style="cursor: pointer;" class="content">
-                                <i (click)="deleteBucketList()" style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                            <div (click)="deletetrigger()" style="cursor: pointer;" class="content">
+                                <i style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                 <span>Delete</span>
                             </div>
                         </div>
@@ -100,7 +100,19 @@
                                     <div #viewitem class="view" [class.completed]="bucketitem.done">
                                         <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                         <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
-                                        <button (click)="deleteItem(bucketitem)" class="destroy"></button>
+                                        <modal [animation]="animationsEnabled" (onClose)="deleteItem()" #modalconfirmitem>
+                                            <modal-header [show-close]="true">
+                                                <h4 class="modal-title">Confirm Delete</h4>
+                                            </modal-header>
+                                            <modal-body>
+                                                Are you sure you want to delete?
+                                            </modal-body>
+                                            <modal-footer>
+                                                <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                                                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">YES</button>
+                                            </modal-footer>
+                                        </modal>
+                                        <button (click)="deleteitemtrigger(bucketitem)" class="destroy"></button>
                                     </div>
                                     <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
                                 </li>
@@ -145,6 +157,18 @@
         <modal-footer>
             <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
             <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
+        </modal-footer>
+    </modal>
+    <modal [animation]="animationsEnabled" (onClose)="deleteBucketList()" #modalconfirm>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">Confirm Delete</h4>
+        </modal-header>
+        <modal-body>
+            Are you sure you want to delete?
+        </modal-body>
+        <modal-footer>
+            <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+            <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodal.close();">YES</button>
         </modal-footer>
     </modal>
 </div>
