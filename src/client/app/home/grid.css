@@ -710,6 +710,14 @@ ul.completed-items li {
     font-family: latto_medium;
 }
 
+.no-buckets {
+    /*text-align: center;*/
+    margin: 0 auto;
+    font-size: 15px;
+    font-family: latto_medium;
+    margin: 0px 10px 0px 10px;
+}
+
 
 /* Toggle Styles */
 
@@ -720,7 +728,7 @@ ul.completed-items li {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     min-height: 100%;
-    background-image: -webkit-linear-gradient(top, rgba(95,131,186,0.3), rgba(130, 85, 74, 0.3)),url(assets/img/masdubg5.jpg);
+    background-image: -webkit-linear-gradient(top, rgba(95, 131, 186, 0.3), rgba(130, 85, 74, 0.3)), url(assets/img/masdubg5.jpg);
     /*background-image: url(assets/img/masdubg5.jpg);*/
     background-position: center center;
     background-repeat: no-repeat;
@@ -775,6 +783,9 @@ ul.completed-items li {
     }
     #wrapper.toggled .person-small .dropdown-menu {
         width: 200px;
+    }
+    #wrapper.toggled .no-buckets {
+        display: none;
     }
     #wrapper.toggled .person {
         display: table;

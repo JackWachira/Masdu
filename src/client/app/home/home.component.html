@@ -45,6 +45,9 @@
                         <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
                     </li>
                 </ul>
+                <div class="no-buckets" *ngIf="nobuckets">
+                    There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one
+                </div>
                 <div class="person-small" style="height: 45px; background: transparent;">
                     <div (click)="togglenav($event)" style="cursor: pointer;" class="person">
                         <div>
@@ -86,7 +89,7 @@
                         <div class="col-md-12 col-xs-12 form-group form-group-lg" id="add-item">
                             <div class="inner-addon right-addon">
                                 <i (click)="addItem(item.value,item)" style="color: white;cursor: pointer;" class="material-icons">add</i>
-                                <input #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
+                                <input [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
                             </div>
                         </div>
                     </div>
@@ -144,10 +147,4 @@
             <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
         </modal-footer>
     </modal>
-    <script>
-    $("#title").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
 </div>

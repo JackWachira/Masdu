@@ -32,6 +32,7 @@ declare var jQuery: JQueryStatic;
 export class HomeComponent implements OnInit{
     openPage: string;
     editing = false;
+    nobuckets = false;
     @Input() bucketlist: Bucketlist[];
     @Input() bucketitem: BucketItem[];
     @Input() bucket: Bucketlist;
@@ -149,21 +150,28 @@ export class HomeComponent implements OnInit{
     onComplete(data: any) {
         console.log(data);
         this.bucketlist = data;
-        this.selectedBucket = this.bucketlist[this.index];
-        this.itemcount = Object.keys(this.selectedBucket.items).length;
+        var num = Object.keys(data).length;
+        if (num > 0) {
+            this.nobuckets = false;
+            this.selectedBucket = this.bucketlist[this.index];
+            this.itemcount = Object.keys(this.selectedBucket.items).length;
+        } else {
+            this.nobuckets = true;
+        }
+
     }
     onInitComplete(data: any){
         this.bucketlist = data;
-        console.log(this.bucketlist);
-        console.log("start select");
-        console.log(this.selectedBucket);
-        var index = this.bucketlist.indexOf(this.selectedBucket);
-        console.log(index);
-        this.selectedBucket = this.bucketlist[0];
-        console.log(this.selectedBucket);
-        console.log("end select");
-
-        this.onSelect(this.selectedBucket, 0);
+        var num = Object.keys(data).length;
+        if (num > 0) {
+            this.nobuckets = false;
+            var index = this.bucketlist.indexOf(this.selectedBucket);
+            this.selectedBucket = this.bucketlist[0];
+            this.onSelect(this.selectedBucket, 0);
+        } else {
+            console.log("no items");
+            this.nobuckets = true;
+        }
     }
     onSaveItem(data: any) {
         console.log(data);
