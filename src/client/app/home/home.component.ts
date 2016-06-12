@@ -14,13 +14,14 @@ import {UnDoneItemsPipe} from '../bucketlist/undone-items.pipe'
 import {SearchPipe} from '../bucketlist/search.pipe'
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 import { MODAL_DIRECTIVES, ModalComponent, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 declare var jQuery: JQueryStatic;
 
 
 
 @Component({
     selector: 'home-page',
-    providers: [BucketService, HTTP_PROVIDERS, MODAL_DIRECTIVES],
+    providers: [BucketService, HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager],
     directives: [LoginComponent, MODAL_DIRECTIVES],
     moduleId: module.id,
     templateUrl: 'home.component.html',
@@ -29,7 +30,7 @@ declare var jQuery: JQueryStatic;
 })
 
 
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
     openPage: string;
     editing = false;
     nobuckets = false;
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     bucketname: string;
 
     private bctlst:Bucketlist[];
-    constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService) {
+    constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService, public toastr: ToastsManager) {
         this.openPage = "login";
 
     }
@@ -95,7 +96,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.modal.open();
     }
     ngOnInit(){
-
         var token = localStorage.getItem('auth_token');
         if (token) {
             this.fetchbuckets();
@@ -139,18 +139,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
     onSelect(bucketitem: Bucketlist, i: number) {
         this.visible = false;
-        this.selectedBucket = bucketitem;
         this.itemcount = Object.keys(bucketitem.items).length;
         if(this.itemcount > 0){
             this.noitems = false;
         }else{
             this.noitems = true;
         }
+        this.selectedBucket = bucketitem;
         this.index=i;
         console.log(this.selectedBucket);
     }
     logError(err: any) {
-        console.log(err);
+        // console.log(JSON.parse(err['_body'])['error']);
+        this.toastr.error(JSON.parse(err['_body'])['error'], 'Error!');
         if(err['status']==403){
             console.log(err['_body']);
             this._router.navigate(['/#']);
@@ -177,6 +178,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
             this.nobuckets = false;
             this.selectedBucket = this.bucketlist[this.index];
             this.itemcount = Object.keys(this.selectedBucket.items).length;
+            if (this.itemcount > 0) {
+                this.noitems = false;
+            } else {
+                this.noitems = true;
+            }
         } else {
             this.nobuckets = true;
         }

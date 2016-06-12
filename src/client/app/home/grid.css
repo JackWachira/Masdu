@@ -473,6 +473,21 @@ div.completed label {
     border: 0;
     background-color: transparent;
 }
+.edititem {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    margin: auto 0;
+    color: #cc9a9a;
+    /*margin-bottom: 11px;*/
+    transition: color 0.2s ease-out;
+    border: 0;
+    background-color: transparent;
+}
 
 .destroy2 {
     position: absolute;
@@ -497,6 +512,12 @@ div.completed label {
     content: '×';
 }
 
+.edititem:hover {
+    color: #af5b5e;
+}
+
+
+
 .destroy2:after {
     content: '×';
 }
@@ -506,6 +527,14 @@ div.completed label {
 }
 
 .view-done:hover .destroy {
+    display: block;
+}
+
+.view:hover .edititem {
+    display: block;
+}
+
+.view-done:hover .edititem {
     display: block;
 }
 

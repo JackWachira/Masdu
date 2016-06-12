@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12 side-top">
                 <div class="col-xs-1" style="height: 45px; background: transparent;">
-                    <i (click)="togglenav($event)" style="cursor: pointer" class="material-icons md-24 md-light">menu</i>
+                    <i class="noselect" (click)="togglenav($event)" style="cursor: pointer" class="material-icons md-24 md-light">menu</i>
                 </div>
                 <div class="person-big col-xs-2" style="height: 45px; background: transparent;">
                     <div style="cursor: pointer;" class="person" data-toggle="dropdown">
@@ -112,6 +112,7 @@
                                                 <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">YES</button>
                                             </modal-footer>
                                         </modal>
+                                        <i (click)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)" style="cursor: pointer;" class="edititem fa fa-pencil fa-lg" aria-hidden="true"></i>
                                         <button (click)="deleteitemtrigger(bucketitem)" class="destroy"></button>
                                     </div>
                                     <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
@@ -123,7 +124,7 @@
                         </div>
                     </div>
                     <div *ngIf="!noitems" (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
-                        <div  class="panel-body">
+                        <div class="panel-body">
                             <p #togglep class="noselect">SHOW COMPLETED ITEMS</p>
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                                         <p>{{bucketitem.date_updated}} by {{username}}</p>
                                     </div>
                                     <div class="col-md-1 col-xs-1">
-                                        <i (click)="deleteItem(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
+                                        <i (click)="deleteitemtrigger(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
                                         <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
                                     </div>
                                 </div>
