@@ -119,9 +119,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div (click)="showCompleted()" class="panel panel-default" id="showcompleted">
+                    <div (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
                         <div class="panel-body">
-                            SHOW COMPLETED ITEMS
+                            <p #togglep class="noselect">SHOW COMPLETED ITEMS</p>
                         </div>
                     </div>
                     <div [hidden]="!visible" class="col-md-12 col-xs-12">

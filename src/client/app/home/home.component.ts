@@ -155,8 +155,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         var token = localStorage.getItem('auth_token');
         return jwtHelper.decodeToken(token)
     }
-    showCompleted(){
+    showCompleted(element: HTMLInputElement) {
         this.visible = !this.visible;
+        if (this.visible){
+            element.innerHTML = "HIDE COMPLETED ITEMS";
+        }else{
+            element.innerHTML = "SHOW COMPLETED ITEMS";
+        }
     }
     onComplete(data: any) {
         console.log(data);
