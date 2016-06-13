@@ -376,7 +376,8 @@ p {
     position: fixed;
     vertical-align: bottom;
     right: 0;
-    width: 100%;
+    width: 250px;
+    left: 0px;
     display: inline-block;
     min-height: 42px;
     padding-top: 10px;
