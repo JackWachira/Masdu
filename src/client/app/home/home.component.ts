@@ -76,15 +76,13 @@ export class HomeComponent implements OnInit {
         this.querystring = value;
         console.log(this.querystring);
     }
-    entersearch(element: HTMLInputElement, searchinput: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
-        element.style.display = "none";
+    entersearch(searchinput: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
         searchinput.style.display = "block";
         searchinput.focus();
         searchicon.style.display = "none";
         closeicon.style.display = "block";
     }
-    closesearch(element: HTMLInputElement, search: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
-        element.style.display = "table-cell";
+    closesearch(search: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
         search.style.display = "none";
         searchicon.style.display = "block";
         closeicon.style.display = "none";

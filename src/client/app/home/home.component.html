@@ -6,27 +6,13 @@
                 <div class="col-xs-1" style="height: 45px; background: transparent;">
                     <i class="noselect" (click)="togglenav($event)" style="cursor: pointer" class="material-icons md-24 md-light">menu</i>
                 </div>
-                <div class="person-big col-xs-2" style="height: 45px; background: transparent;">
-                    <div style="cursor: pointer;" class="person" data-toggle="dropdown">
-                        <div>
-                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
-                                    </span></div>
-                        </div>
-                        <div #user style="padding-left: 10px; color: white;" class="person-name js-name">{{username}}</div>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
-                        <li style="min-height: 1px;" role="separator" class="divider"></li>
-                        <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
-                    </ul>
-                </div>
-                <div class="col-xs-9 search-block" style="height: 45px; background: transparent;">
+                <div class="col-xs-11 search-block" style="height: 45px; background: transparent;">
                     <div class="col-xs-8" id="search-box">
-                        <input style="display: none;" (keyup.escape)="closesearch(user,filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
+                        <input style="display: none;" (keyup.escape)="closesearch(filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
                     </div>
                     <div class="col-xs-4">
-                        <i #searchicon style="cursor: pointer;" (click)="entersearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
-                        <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(user,filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
+                        <i #searchicon style="cursor: pointer;" (click)="entersearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
+                        <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
                     </div>
                 </div>
             </div>
@@ -34,12 +20,28 @@
         <div class="row">
             <div class="col-xs-12 side-main">
                 <ul class="buckets">
-                    <li *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
+                    <li id="bucket-user">
+                        <div class="person-big col-xs-12" >
+                            <div class="col-xs-4 person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials"><b>{{username.charAt(0)}}</b>
+                                    </span>
+                            </div>
+                            <div class="col-xs-8" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <p>{{username}}</p>
+                                <span class="glyphicon glyphicon-menu-down"></span>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
+                                <li style="min-height: 1px;" role="separator" class="divider"></li>
+                                <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="bucket-li" *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
                         <div #bname class="view">
-                            <i class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
+                            <i id="edbucket" class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
                             <div *ngIf="bucket === selectedBucket" class="bucket-ops">
                                 <p style="font-size: 10px">{{itemcount}}</p>
-                                <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                <i  (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                             </div>
                         </div>
                         <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
@@ -51,7 +53,7 @@
                 <div class="person-small" style="height: 45px; background: transparent;">
                     <div (click)="togglenav($event)" style="cursor: pointer;" class="person">
                         <div>
-                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}}
+                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}} | uppercase
                                     </span></div>
                         </div>
                     </div>
