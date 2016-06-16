@@ -1,6 +1,6 @@
 # Tools documentation
 
-This document contains information about the tools section of the `angular2-seed`.
+This document contains information about the tools section of `Masdu`.
 
 ## General Information
 
@@ -14,21 +14,17 @@ The root of this folder contains the following files:
 | `README.md`  | The documentation of the tools section |
 | `utils.ts`   | Exports the utilities provided by the seed barrel file (`/utils/seed.utils.ts`) and the project specific barrel file (`/utils/project.utils.ts`) |
 
-The subfolders provide further folders to distinguish between files which are provided by the seed (located in the corresponding `seed` folder) and files which can be specific by project (to be located in the corresponding `project` folder). This helps you to include updates from the `angular2-seed` without causing conflicts with you personal customisations.
-
 ## Configuration
 
-The configuration of the seed contains of a basic configuration provided by `/config/seed.config.ts` file. You can add you own custom configuration within the `/config/project.config.ts` file, which extends the seed configuration.
+The configuration of the seed contains of a basic configuration provided by `/config/seed.config.ts` file.
 
 ## Manual Typings
 
-The `manual_typings` folder contains of manual TypeScript typings provided by the seed (`/manual_typings/seed`) and project specific TypeScript typings (`/manual_typings/project`). As for the project specific typings there is a sample provided (`/manual_typings/project/sample.package.d.ts`) to help you get started.
+The `manual_typings` folder contains of manual TypeScript typings provided by the seed (`/manual_typings/seed`) and project specific TypeScript typings (`/manual_typings/project`).
 
 ## Tasks
 
-The `tasks` folder contains of tasks provided by the seed (`/tasks/seed`) and project specific tasks (`/tasks/project`). As for the project specific tasks there is a sample provided (`/tasks/project/sample.task.ts`) to help you get started.
-
-The seed provides the following tasks:
+The `tasks` folder contains of tasks provided by the seed (`/tasks/seed`) and project specific tasks (`/tasks/project`).
 
 | Filename               | Description |
 | :--------------------- | :---------- |
@@ -67,11 +63,9 @@ The seed provides the following tasks:
 
 ## Utilities
 
-The `utils` folder contains of utilities provided by the seed (`/utils/seed`) and project specific utilities (`/utils/project`). As for the project specific utilities there is a sample provided (`/utils/project/sample_util.ts`) to help you get started.
+The `utils` folder contains of utilities provided by the seed (`/utils/seed`) and project specific utilities (`/utils/project`).
 
 The utilities are exported by the barrel files `project.utils.ts` (for the project specific utilities) and `seed.utils.ts` (for the utilities provided by the seed).
-
-The seed provides the following utilities:
 
 | Filename               | Description |
 | :--------------------- | :---------- |
