@@ -50,15 +50,7 @@
                 <div class="no-buckets" *ngIf="nobuckets">
                     There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one
                 </div>
-                <div class="person-small" style="height: 45px; background: transparent;">
-                    <div (click)="togglenav($event)" style="cursor: pointer;" class="person">
-                        <div>
-                            <div class="person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials">{{username.charAt(0)}} | uppercase
-                                    </span></div>
-                        </div>
-                    </div>
-                </div>
-                <i (click)="togglenav($event)" id="more_vert" style="cursor: pointer;" class="material-icons md-24 blue">more_vert</i>
+                <i (click)="togglenav($event)" id="more_vert" style="cursor: pointer;padding-top: 20px;" class="material-icons md-24 blue">more_vert</i>
                 <div style="cursor: pointer;" (click)="open()" class="side-main-bottom">
                     <i class="material-icons md-24 blue">add</i>
                     <p>Create New Bucket List</p>
@@ -143,7 +135,6 @@
                                     </div>
                                     <div class="col-md-1 col-xs-1">
                                         <i (click)="deleteitemtrigger(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
-                                        <!-- <button (click)="deleteItem(bucketitem)" class="destroy2"></button> -->
                                     </div>
                                 </div>
                             </li>

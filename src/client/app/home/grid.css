@@ -434,17 +434,14 @@ p {
     line-height: 46px;
     transition: color 0.4s;
     font-family: latto_medium;
-    font-size: 15px;
+    font-size: 1em;
     font-weight: lighter;
 }
 
 .view-done div label {
     white-space: pre;
     word-break: break-word;
-    /*padding: 0px 60px 0px 15px;*/
-    /*margin-left: 45px;*/
     display: block;
-    /*line-height: 46px;*/
     transition: color 0.4s;
     font-family: latto_medium;
     font-size: 15px;
@@ -859,7 +856,7 @@ ul.completed-items li {
         visibility: hidden;
     }
     #wrapper.toggled .person-small {
-        visibility: visible;
+        visibility: hidden;
         margin-right: 20px;
     }
     #wrapper.toggled .person-small .dropdown-menu {
