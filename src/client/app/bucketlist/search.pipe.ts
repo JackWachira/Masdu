@@ -7,8 +7,9 @@ import { DoneItemsPipe } from './done-items.pipe';
     pure: false
 })
 export class SearchPipe{
+
+    // Retuns bucket list matching query
     transform(bucketlist: any, [query]) {
-        // console.log(query);
         if (bucketlist == null) {
             return null;
         }

@@ -28,6 +28,7 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 export class App implements OnInit {
     constructor(private router: Router) { }
 
+    // Checks for token expiration to display appropriate page
     ngOnInit() {
         var jwtHelper = new JwtHelper();
         var token = localStorage.getItem('auth_token');

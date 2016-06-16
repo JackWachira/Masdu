@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { BucketService } from '../bucketlist/bucketlist.service';
 import { Bucketlist } from '../bucketlist/bucketlist';
 import { BucketItem } from '../bucketlist/bucketitem';
-import { ItemComponent } from '../bucketlist/item.component';
 import { HTTP_PROVIDERS } from '@angular/http';
 import {CanActivate} from '@angular/router-deprecated';
 import {DoneItemsPipe} from '../bucketlist/done-items.pipe'
@@ -35,6 +34,13 @@ export class HomeComponent implements OnInit {
     editing = false;
     nobuckets = false;
     noitems = false;
+    currentTitle: string;
+    visible: boolean = false;
+    editMode = false;
+    index: number = 0;
+    bucketname: string;
+    private bctlst: Bucketlist[];
+
     @Input() bucketlist: Bucketlist[];
     @Input() bucketitem: BucketItem[];
     @Input() bucket: Bucketlist;
@@ -43,16 +49,11 @@ export class HomeComponent implements OnInit {
     @Input() email: any;
     @Input() querystring: any;
     @Input() hasItems: boolean = false;
-    currentTitle: string;
     @Input() public selectedBucket: Bucketlist;
     @Input() public selectdeleteItem: BucketItem;
     @Input() public selectedCurrentText: string;
-    visible: boolean = false;
-    editMode = false;
-    index: number=0;
-    bucketname: string;
 
-    private bctlst:Bucketlist[];
+
     constructor(private el: ElementRef, private _router: Router, private bucketService: BucketService, public toastr: ToastsManager) {
         this.openPage = "login";
 
@@ -67,21 +68,25 @@ export class HomeComponent implements OnInit {
     @ViewChild('modalconfirmitem')
     confirmmodalitem: ModalComponent;
 
-
+    // Executed when modal is closed
     onClose(result: ModalResult) {
-        console.log(this.bucketname);
         this.createBucketList(this.bucketname);
     }
+
+    // Triggered when searching bucket list
     onKey(value: string) {
         this.querystring = value;
-        console.log(this.querystring);
     }
+
+    // Shows search bar when intent to search is triggered
     entersearch(searchinput: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
         searchinput.style.display = "block";
         searchinput.focus();
         searchicon.style.display = "none";
         closeicon.style.display = "block";
     }
+
+    // Closes search bar
     closesearch(search: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
         search.style.display = "none";
         searchicon.style.display = "block";
@@ -90,9 +95,11 @@ export class HomeComponent implements OnInit {
         search.value = "";
     }
 
+    // Opens modal
     open() {
         this.modal.open();
     }
+
     ngOnInit(){
         var token = localStorage.getItem('auth_token');
         if (token) {
@@ -104,14 +111,19 @@ export class HomeComponent implements OnInit {
             this._router.navigate(['/']);
         }
     }
+
+    // Navigates user to login page
     logOut(){
         localStorage.removeItem('auth_token');
         this._router.navigate(['/']);
     }
+
+    // Executed when bucketlist is created succesfully
     onCreateBucket(data: any){
-        console.log(data);
         this.fetchbuckets();
     }
+
+    // Calls service to create bucketlists
     createBucketList(bucketname: string){
         this.bucketService.createBucket(bucketname).subscribe(
             data => this.onCreateBucket(data),
@@ -119,6 +131,8 @@ export class HomeComponent implements OnInit {
             () => console.log('Add successful')
         );
     }
+
+    // Calls service to delete bucket item
     deleteItem(){
         var bucketitem = this.selectdeleteItem;
         this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(
@@ -127,6 +141,8 @@ export class HomeComponent implements OnInit {
             () => console.log('Authentication Complete')
         );
     }
+
+    // Toggles between completed and uncompleted items
     toggle(bucketitem: BucketItem) {
         bucketitem.done = !bucketitem.done;
         this.updateItem(bucketitem, bucketitem.done);
@@ -135,6 +151,8 @@ export class HomeComponent implements OnInit {
         bucketitem.done = !bucketitem.done;
         this.updateItem(bucketitem, bucketitem.done);
     }
+
+    // Executed when user selects a bucketlist
     onSelect(bucketitem: Bucketlist, i: number) {
         this.visible = false;
         this.itemcount = Object.keys(bucketitem.items).length;
@@ -147,19 +165,24 @@ export class HomeComponent implements OnInit {
         this.index=i;
         console.log(this.selectedBucket);
     }
+
+    // Executed when an error occurs on Api call
     logError(err: any) {
-        // console.log(JSON.parse(err['_body'])['error']);
         this.toastr.error(JSON.parse(err['_body'])['error'], 'Error!');
         if(err['status']==403){
             console.log(err['_body']);
             this._router.navigate(['/#']);
         }
     }
+
+    // Gets user name
     getUser(){
         var jwtHelper = new JwtHelper();
         var token = localStorage.getItem('auth_token');
         return jwtHelper.decodeToken(token)
     }
+
+    // Displays completed items label
     showCompleted(element: HTMLInputElement) {
         this.visible = !this.visible;
         if (this.visible){
@@ -168,6 +191,8 @@ export class HomeComponent implements OnInit {
             element.innerHTML = "SHOW COMPLETED ITEMS";
         }
     }
+
+    // Executed when an error occurs on Api call
     onComplete(data: any) {
         console.log(data);
         this.bucketlist = data;
@@ -186,30 +211,23 @@ export class HomeComponent implements OnInit {
         }
 
     }
-    onInitComplete(data: any){
-        this.bucketlist = data;
-        var num = Object.keys(data).length;
-        if (num > 0) {
-            this.nobuckets = false;
-            var index = this.bucketlist.indexOf(this.selectedBucket);
-            this.selectedBucket = this.bucketlist[0];
-            this.onSelect(this.selectedBucket, 0);
-        } else {
-            console.log("no items");
-            this.nobuckets = true;
-        }
-    }
+
+    // Refreshes bucketlists once a save is made
     onSaveItem(data: any) {
         console.log(data);
         this.fetchbuckets();
     }
+
+    // Calls service to fetch bucketlists
     fetchbuckets(){
         this.bucketService.getBucketLists().subscribe(
             data => this.onComplete(data),
             err => this.logError(err),
-            () => console.log('Authentication Complete')
+            () => console.log('Complete')
         );
     }
+
+    // Dismisses editing interface
     cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
         this.editMode = false;
         element.style.display = "none";
@@ -217,6 +235,7 @@ export class HomeComponent implements OnInit {
         this.selectedBucket = bucket;
     }
 
+    // Commits an edit to bucketitem
     commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement,bucketitem:BucketItem) {
         this.editMode = false;
         element.style.display = "none";
@@ -226,6 +245,8 @@ export class HomeComponent implements OnInit {
             this.updateItem(bucketitem, bucketitem.done);
         }
     }
+
+    // Calls service to update a bucket
     updateBucket(bucket: Bucketlist, name: string){
         this.bucketService.updateBucket(name, bucket.id).subscribe(
             data => this.onUpdateComplete(data),
@@ -233,6 +254,8 @@ export class HomeComponent implements OnInit {
             () => console.log('Authentication Complete')
         );
     }
+
+    // Commits an edit to bucket list
     commitEditBucketList(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
         this.editMode = false;
         element.style.display = "none";
@@ -243,6 +266,8 @@ export class HomeComponent implements OnInit {
             this.updateBucket(bucket, updatedText);
         }
     }
+
+    // Shows interface for editing bucket item
     enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
         console.log(element);
         element.style.display = "block";
@@ -253,6 +278,9 @@ export class HomeComponent implements OnInit {
             setTimeout(() => { element.focus(); }, 0);
         }
     }
+
+    // Shows interface for editing bucket list
+
     editModeBucket(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
         console.log(element);
         element.style.display = "block";
@@ -263,6 +291,8 @@ export class HomeComponent implements OnInit {
             setTimeout(() => { element.focus(); }, 0);
         }
     }
+
+    // Shows confirmation message for deleting an item/bucketlist
     deletetrigger(){
         this.confirmmodal.open();
     }
@@ -270,25 +300,31 @@ export class HomeComponent implements OnInit {
         this.selectdeleteItem = selectdeleteItem
         this.confirmmodalitem.open();
     }
+
+    // Calls service to delete bucketlist
     deleteBucketList(){
         this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
             data => this.fetchbuckets(),
             err => this.logError(err),
-            () => console.log('Authentication Complete')
+            () => console.log('Complete')
         );
     }
+
+    // Calls service to update bucketitem
     updateItem(item: BucketItem, done: boolean) {
         this.bucketService.updateItem(item.name, this.selectedBucket.id, item.id, done).subscribe(
             data => this.onUpdateComplete(data),
             err => this.logError(err),
-            () => console.log('Authentication Complete')
+            () => console.log('Complete')
         );
     }
+
+    // Refreshes bucketlist once update complete
     onUpdateComplete(data: any){
-        console.log(data);
         this.fetchbuckets();
-        // this.onSelect(this.selectedBucket);
     }
+
+    // Api call to add a new item
     addItem(itemname: string,element: HTMLInputElement) {
         element.value="";
         var token = localStorage.getItem('auth_token');
@@ -300,32 +336,12 @@ export class HomeComponent implements OnInit {
             );
         }
     }
-    editCard() {
-        this.editing = true;
-        this.currentTitle = this.bucket.name;
-        let textArea = this.el.nativeElement.getElementsByTagName('textarea')[0];
-        setTimeout(function() {
-            textArea.focus();
-        }, 0);
-    }
+
+    // Hides/Displays nav bar
     togglenav(event:any){
         event.preventDefault();
         jQuery(this.el.nativeElement)
             .find('#wrapper').toggleClass("toggled");
-    }
-    blurOnEnter(event:any) {
-        if (event.keyCode === 13) {
-            event.target.blur();
-        } else if (event.keyCode === 27) {
-            this.bucket.name = this.currentTitle;
-            this.editing = false;
-        }
-    }
-    updateCard() {
-        if (!this.bucket.name || this.bucket.name.trim() === '') {
-            this.bucket.name = this.currentTitle;
-        }
-        this.editing = false;
     }
 }
 

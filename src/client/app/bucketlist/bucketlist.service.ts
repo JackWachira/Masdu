@@ -12,6 +12,9 @@ export class BucketService {
     constructor(public http: Http) {
 
     }
+
+    // Api call to fetch all bucketlists
+
     getBucketLists(): Observable<Bucketlist[]> {
 
         var headers = new Headers();
@@ -22,6 +25,8 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+
+    // Api call to save bucket item
     saveBucketItem(bid: number, name: string): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -30,6 +35,8 @@ export class BucketService {
             headers: headers})
             .map(res => res.json());
     }
+
+    // Api call to create a bucket
     createBucket(name: string){
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -39,6 +46,8 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+
+    // Api call to update a bucket item details
     updateItem(name:string ,bid: number, itemid: number, done: boolean): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -48,6 +57,8 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+
+    // Api call to update bucket details
     updateBucket(name: string, bid: number): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -57,6 +68,8 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+
+    // APi call to delete bucket item
     deleteItem(bid: number, itemid: number): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -66,6 +79,8 @@ export class BucketService {
         })
             .map(res => res.json());
     }
+
+    // Api call to delete a bucket
     deleteBucket(bid: number): Observable<any> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
