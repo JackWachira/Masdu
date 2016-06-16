@@ -49,7 +49,7 @@ var APP_BASE         = '/';
 Configure at runtime
 
 ```bash
-npm start -- --port 8080 --reload-port 4000 --base /my-app/
+npm start -- --port 8080
 ```
 
 # Tools documentation
