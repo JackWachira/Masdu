@@ -83,9 +83,9 @@ blockquote cite {
     margin-top: 5px;
 }
 
-blockquote cite:before {
+/*blockquote cite:before {
     content: "\2014 \2009";
-}
+}*/
 
 .alert {
     width: 300px;
