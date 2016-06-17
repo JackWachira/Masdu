@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     @Input() register_success: boolean = false;
     @Input() userobj:any;
 
-    model = new User(1, "", "", "");
+    model = new User(1, "", "", "", "");
 
     constructor(private evt: DisplayService, public http: Http, private router: Router) {
     }

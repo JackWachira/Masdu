@@ -51,3 +51,6 @@ span {
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+.match{
+  display: none;
+}

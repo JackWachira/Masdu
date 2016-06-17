@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, Output, EventEmitter} from '@angular/core';
+import {Component, ElementRef, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {DisplayService} from '../display.service';
 import { User }    from '../user';
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
@@ -22,24 +22,37 @@ export class SignUpComponent {
     @Output() signupChange = new EventEmitter();
     @Input() userobj:any;
 
-    model = new User(1, "","", "")
-
+    model = new User(1, "","", "", "")
+    @ViewChild('confirmPassword') confirmPassword: any;
+    @ViewChild('passwordd') Password: any;
 
     constructor(public http: Http, private _displservice: DisplayService) { }
 
     // Called when signup is clicked
-    onSubmit() {
+    onSubmit(element: HTMLInputElement) {
         this.submitted = true;
         let email = this.model.email;
         let password = this.model.password;
         let username = this.model.username;
-        this.sendRequest(email, username, password);
+        let confirm_password = this.model.confirm_password;
+        if(confirm_password!=password){
+            element.setCustomValidity("Passwords do not match");
+        }else{
+            this.sendRequest(email, username, password, confirm_password);
+        }
+
+    }
+    validateConfirm(element: HTMLInputElement, element2: HTMLInputElement) {
+        if (element.value != element2.value && (element2.value.length>0)) {
+            return false;
+        }
+        return true;
     }
 
     // Api request to sign up
-    sendRequest(email:any,username:any,password:any){
+    sendRequest(email: any, username: any, password: any, confirm_password:any) {
         var params = "email=" + email + "&password=" + password+
-                    "&username=" + username;
+            "&username=" + username + "confirm_password" + confirm_password;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         this.http.post('https://masduapi.herokuapp.com/api/auth/register/', params, {

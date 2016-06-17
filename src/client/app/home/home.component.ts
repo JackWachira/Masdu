@@ -168,7 +168,6 @@ export class HomeComponent implements OnInit {
 
     // Executed when an error occurs on Api call
     logError(err: any) {
-        this.toastr.error(JSON.parse(err['_body'])['error'], 'Error!');
         if(err['status']==403){
             console.log(err['_body']);
             this._router.navigate(['/#']);
@@ -301,10 +300,14 @@ export class HomeComponent implements OnInit {
         this.confirmmodalitem.open();
     }
 
+    onDeleteBucket(){
+        console.log("bucketlist deleted");
+        this.fetchbuckets();
+    }
     // Calls service to delete bucketlist
     deleteBucketList(){
         this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
-            data => this.fetchbuckets(),
+            data => this.onDeleteBucket(),
             err => this.logError(err),
             () => console.log('Complete')
         );
