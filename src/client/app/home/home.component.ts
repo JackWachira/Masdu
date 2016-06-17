@@ -68,6 +68,9 @@ export class HomeComponent implements OnInit {
     @ViewChild('modalconfirmitem')
     confirmmodalitem: ModalComponent;
 
+    @ViewChild('bucketitemid')
+    bitemid: any;
+
     // Executed when modal is closed
     onClose(result: ModalResult) {
         this.createBucketList(this.bucketname);
@@ -98,6 +101,7 @@ export class HomeComponent implements OnInit {
     // Opens modal
     open() {
         this.modal.open();
+        this.bitemid.nativeElement.value = "";
     }
 
     ngOnInit(){
