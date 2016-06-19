@@ -104,31 +104,31 @@ export class HomeComponent implements OnInit {
         this.bitemid.nativeElement.value = "";
     }
 
-    ngOnInit(){
+    ngOnInit() {
         var token = localStorage.getItem('auth_token');
         if (token) {
             this.fetchbuckets();
             this.username = this.getUser()['username'];
             this.email = this.getUser()['email'];
             this.querystring = "";
-        }else{
+        } else {
             this._router.navigate(['/']);
         }
     }
 
     // Navigates user to login page
-    logOut(){
+    logOut() {
         localStorage.removeItem('auth_token');
         this._router.navigate(['/']);
     }
 
     // Executed when bucketlist is created succesfully
-    onCreateBucket(data: any){
+    onCreateBucket(data: any) {
         this.fetchbuckets();
     }
 
     // Calls service to create bucketlists
-    createBucketList(bucketname: string){
+    createBucketList(bucketname: string) {
         this.bucketService.createBucket(bucketname).subscribe(
             data => this.onCreateBucket(data),
             err => this.logError(err),
@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Calls service to delete bucket item
-    deleteItem(){
+    deleteItem() {
         var bucketitem = this.selectdeleteItem;
         this.bucketService.deleteItem(this.selectedBucket.id, bucketitem.id).subscribe(
             data => this.fetchbuckets(),
@@ -160,26 +160,26 @@ export class HomeComponent implements OnInit {
     onSelect(bucketitem: Bucketlist, i: number) {
         this.visible = false;
         this.itemcount = Object.keys(bucketitem.items).length;
-        if(this.itemcount > 0){
+        if (this.itemcount > 0) {
             this.noitems = false;
-        }else{
+        } else {
             this.noitems = true;
         }
         this.selectedBucket = bucketitem;
-        this.index=i;
+        this.index = i;
         console.log(this.selectedBucket);
     }
 
     // Executed when an error occurs on Api call
     logError(err: any) {
-        if(err['status']==403){
+        if (err['status'] == 403) {
             console.log(err['_body']);
             this._router.navigate(['/#']);
         }
     }
 
     // Gets user name
-    getUser(){
+    getUser() {
         var jwtHelper = new JwtHelper();
         var token = localStorage.getItem('auth_token');
         return jwtHelper.decodeToken(token)
@@ -188,9 +188,9 @@ export class HomeComponent implements OnInit {
     // Displays completed items label
     showCompleted(element: HTMLInputElement) {
         this.visible = !this.visible;
-        if (this.visible){
+        if (this.visible) {
             element.innerHTML = "HIDE COMPLETED ITEMS";
-        }else{
+        } else {
             element.innerHTML = "SHOW COMPLETED ITEMS";
         }
     }
@@ -222,7 +222,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Calls service to fetch bucketlists
-    fetchbuckets(){
+    fetchbuckets() {
         this.bucketService.getBucketLists().subscribe(
             data => this.onComplete(data),
             err => this.logError(err),
@@ -239,7 +239,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Commits an edit to bucketitem
-    commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement,bucketitem:BucketItem) {
+    commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucketitem: BucketItem) {
         this.editMode = false;
         element.style.display = "none";
         labelitem.style.display = "block";
@@ -250,7 +250,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Calls service to update a bucket
-    updateBucket(bucket: Bucketlist, name: string){
+    updateBucket(bucket: Bucketlist, name: string) {
         this.bucketService.updateBucket(name, bucket.id).subscribe(
             data => this.onUpdateComplete(data),
             err => this.logError(err),
@@ -296,7 +296,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Shows confirmation message for deleting an item/bucketlist
-    deletetrigger(){
+    deletetrigger() {
         this.confirmmodal.open();
     }
     deleteitemtrigger(selectdeleteItem: BucketItem) {
@@ -304,12 +304,12 @@ export class HomeComponent implements OnInit {
         this.confirmmodalitem.open();
     }
 
-    onDeleteBucket(){
+    onDeleteBucket() {
         console.log("bucketlist deleted");
         this.fetchbuckets();
     }
     // Calls service to delete bucketlist
-    deleteBucketList(){
+    deleteBucketList() {
         this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
             data => this.onDeleteBucket(),
             err => this.logError(err),
@@ -327,15 +327,15 @@ export class HomeComponent implements OnInit {
     }
 
     // Refreshes bucketlist once update complete
-    onUpdateComplete(data: any){
+    onUpdateComplete(data: any) {
         this.fetchbuckets();
     }
 
     // Api call to add a new item
-    addItem(itemname: string,element: HTMLInputElement) {
-        element.value="";
+    addItem(itemname: string, element: HTMLInputElement) {
+        element.value = "";
         var token = localStorage.getItem('auth_token');
-        if (token){
+        if (token) {
             this.bucketService.saveBucketItem(this.selectedBucket.id, itemname).subscribe(
                 data => this.onSaveItem(data),
                 err => this.logError(err),
@@ -345,7 +345,7 @@ export class HomeComponent implements OnInit {
     }
 
     // Hides/Displays nav bar
-    togglenav(event:any){
+    togglenav(event: any) {
         event.preventDefault();
         jQuery(this.el.nativeElement)
             .find('#wrapper').toggleClass("toggled");
