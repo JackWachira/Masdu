@@ -172,6 +172,7 @@ export class HomeComponent implements OnInit {
 
     // Executed when an error occurs on Api call
     logError(err: any) {
+
         if (err['status'] == 403) {
             console.log(err['_body']);
             this._router.navigate(['/#']);
@@ -243,10 +244,15 @@ export class HomeComponent implements OnInit {
         this.editMode = false;
         element.style.display = "none";
         labelitem.style.display = "block";
-        bucketitem.name = updatedText;
-        if (this.selectedCurrentText != updatedText) {
-            this.updateItem(bucketitem, bucketitem.done);
+        if(updatedText.length>0){
+            bucketitem.name = updatedText;
+            if (this.selectedCurrentText != updatedText) {
+                this.updateItem(bucketitem, bucketitem.done);
+            }
+        }else{
+            this.toastr.error('The bucketitem cannot be blank', 'Oops!');
         }
+
     }
 
     // Calls service to update a bucket
@@ -263,11 +269,16 @@ export class HomeComponent implements OnInit {
         this.editMode = false;
         element.style.display = "none";
         labelitem.style.display = "block";
-        bucket.name = updatedText;
-        this.selectedBucket = bucket;
-        if (this.selectedCurrentText != updatedText) {
-            this.updateBucket(bucket, updatedText);
+        if (updatedText.length > 0) {
+            bucket.name = updatedText;
+            this.selectedBucket = bucket;
+            if (this.selectedCurrentText != updatedText) {
+                this.updateBucket(bucket, updatedText);
+            }
+        }else{
+            this.toastr.error('The bucketlist name cannot be blank', 'Oops!');
         }
+
     }
 
     // Shows interface for editing bucket item
