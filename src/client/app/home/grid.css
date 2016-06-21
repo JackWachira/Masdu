@@ -785,7 +785,7 @@ ul.completed-items li {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    min-height: 768px;
+    min-height: 100vh;;
     background-image: -webkit-linear-gradient(top, rgba(95, 131, 186, 0.3), rgba(130, 85, 74, 0.3)), url(assets/img/masdubg5.jpg);
     /*background-image: url(assets/img/masdubg5.jpg);*/
     background-position: center center;

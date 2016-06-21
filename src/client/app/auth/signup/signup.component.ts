@@ -52,7 +52,7 @@ export class SignUpComponent {
     // Api request to sign up
     sendRequest(email: any, username: any, password: any, confirm_password:any) {
         var params = "email=" + email + "&password=" + password+
-            "&username=" + username + "confirm_password" + confirm_password;
+            "&username=" + username + "&confirm_password=" + confirm_password;
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         this.http.post('https://masduapi.herokuapp.com/api/auth/register/', params, {
