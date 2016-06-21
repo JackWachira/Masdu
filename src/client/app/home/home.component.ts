@@ -172,7 +172,9 @@ export class HomeComponent implements OnInit {
 
     // Executed when an error occurs on Api call
     logError(err: any) {
-
+        if (String(err['_body']).indexOf('unique')>0){
+            this.toastr.error("Already exists");
+        }
         if (err['status'] == 403) {
             console.log(err['_body']);
             this._router.navigate(['/#']);
