@@ -7,41 +7,41 @@ import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 
 @Component({
-    selector: 'app',
-    directives: [LoginComponent, ROUTER_DIRECTIVES],
-    moduleId: module.id,
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.css'],
+  selector: 'app',
+  directives: [LoginComponent, ROUTER_DIRECTIVES],
+  moduleId: module.id,
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
 })
 
 @Routes([
-    {
-        path: '/',
-        component: LandingComponent
-    },
-    {
-        path: '/home',
-        component: HomeComponent
-    },
+  {
+  path: '/',
+  component: LandingComponent
+  },
+  {
+  path: '/home',
+  component: HomeComponent
+  },
 
 ])
 export class App implements OnInit {
-    constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
-    // Checks for token expiration to display appropriate page
-    ngOnInit() {
-        var jwtHelper = new JwtHelper();
-        var token = localStorage.getItem('auth_token');
-        if(token){
-            console.log(jwtHelper.isTokenExpired(token));
-            if (jwtHelper.isTokenExpired(token)) {
-                this.router.navigate(['/']);
-            } else {
-                this.router.navigate(['/home']);
-            }
-        }else{
-            this.router.navigate(['/']);
-        }
-
+  // Checks for token expiration to display appropriate page
+  ngOnInit() {
+  var jwtHelper = new JwtHelper();
+  var token = localStorage.getItem('auth_token');
+  if (token) {
+    console.log(jwtHelper.isTokenExpired(token));
+    if (jwtHelper.isTokenExpired(token)) {
+    this.router.navigate(['/']);
+    } else {
+    this.router.navigate(['/home']);
     }
- }
+  } else {
+    this.router.navigate(['/']);
+  }
+
+  }
+}

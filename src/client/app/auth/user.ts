@@ -5,5 +5,5 @@ export class User {
     public password: string,
     public username: string,
     public confirm_password: string
-  ) {  }
+  ) { }
 }

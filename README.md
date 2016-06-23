@@ -9,7 +9,7 @@ Bucket List application made with Angular2 using [Angular2-Seed](https://github.
 **Note** that this requires node v4.x.x or higher and npm 2.14.7.
 
 ```bash
-git clone --depth 1 https://github.com/andela-jmwangi/Masdu.git
+git clone https://github.com/andela-jmwangi/Masdu.git
 cd Masdu
 # install the project's dependencies
 npm install

@@ -5,25 +5,25 @@ import { Router } from '@angular/router';
 
 
 @Component({
-    selector: 'landing-page',
-    moduleId: module.id,
-    directives: [LoginComponent,SignUpComponent],
-    templateUrl: 'landing.component.html',
-    styleUrls: ['landing.component.css'],
+  selector: 'landing-page',
+  moduleId: module.id,
+  directives: [LoginComponent, SignUpComponent],
+  templateUrl: 'landing.component.html',
+  styleUrls: ['landing.component.css'],
 })
-export class LandingComponent{
-    login: boolean = true;
-    register_success: boolean= false;
+export class LandingComponent {
+  login: boolean = true;
+  register_success: boolean = false;
 
-    myValueChange($event:any) {
-        this.login = $event['value'];
-        console.log(this.login);
-      }
+  myValueChange($event: any) {
+    this.login = $event['value'];
+    console.log(this.login);
+  }
 
-    registerTrigger($event:any) {
-        this.register_success = $event['value'];
-      }
+  registerTrigger($event: any) {
+    this.register_success = $event['value'];
+  }
 
-    constructor(private router: Router) {
-    }
+  constructor(private router: Router) {
+  }
 }

@@ -1,173 +1,172 @@
 <toaster-container></toaster-container>
 <div id="wrapper">
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <div class="row">
-            <div class="col-md-12 side-top">
-                <div class="col-xs-1" style="height: 45px; background: transparent;">
-                    <i class="noselect" (click)="togglenav($event)" style="cursor: pointer" class="material-icons md-24 md-light">menu</i>
-                </div>
-                <div class="col-xs-11 search-block" style="height: 45px; background: transparent;">
-                    <div class="col-xs-8" id="search-box">
-                        <input style="display: none;" (keyup.escape)="closesearch(filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
-                    </div>
-                    <div class="col-xs-4">
-                        <i #searchicon style="cursor: pointer;" (click)="entersearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
-                        <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
-                    </div>
-                </div>
-            </div>
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <div class="row">
+      <div class="col-md-12 side-top">
+        <div class="col-xs-1" style="height: 45px; background: transparent;">
+          <i class="noselect" (click)="togglenav($event)" style="cursor: pointer" class="material-icons md-24 md-light">menu</i>
         </div>
-        <div class="row">
-            <div class="col-xs-12 side-main">
-                <ul class="buckets">
-                    <li id="bucket-user">
-                        <div class="person-big col-xs-12" >
-                            <div class="col-xs-4 person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials"><b>{{username.charAt(0)}}</b>
+        <div class="col-xs-11 search-block" style="height: 45px; background: transparent;">
+          <div class="col-xs-8" id="search-box">
+            <input style="display: none;" (keyup.escape)="closesearch(filterinput,searchicon, closeicon)" #filterinput (keyup)="onKey(filterinput.value)" type="text" class="form-control no-border input-lg" id="search-input">
+          </div>
+          <div class="col-xs-4">
+            <i #searchicon style="cursor: pointer;" (click)="entersearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i>
+            <i #closeicon style="cursor: pointer;display: none;" (click)="closesearch(filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">close</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 side-main">
+        <ul class="buckets">
+          <li id="bucket-user">
+            <div class="person-big col-xs-12">
+              <div class="col-xs-4 person-avatarPlaceholder color-1 js-avatarPlaceholder"><span class="js-initials"><b>{{username.charAt(0)}}</b>
                                     </span>
-                            </div>
-                            <div class="col-xs-8" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <p>{{username}}</p>
-                                <span class="glyphicon glyphicon-menu-down"></span>
-                            </div>
-                            <ul class="dropdown-menu">
-                                <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
-                                <li style="min-height: 1px;" role="separator" class="divider"></li>
-                                <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li id="bucket-li" *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
-                        <div #bname class="view">
-                            <i id="edbucket" class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
-                            <div *ngIf="bucket === selectedBucket" class="bucket-ops">
-                                <p style="font-size: 10px">{{itemcount}}</p>
-                                <i  (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                            </div>
-                        </div>
-
-                        <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
-                    </li>
-                </ul>
-                <div class="no-buckets" *ngIf="nobuckets">
-                    There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one
-                </div>
-                <i (click)="togglenav($event)" id="more_vert" style="cursor: pointer;padding-top: 20px;" class="material-icons md-24 blue">more_vert</i>
-                <div style="cursor: pointer;" (click)="open()" class="side-main-bottom">
-                    <i class="material-icons md-24 blue">add</i>
-                    <p>Create New Bucket List</p>
-                </div>
+              </div>
+              <div class="col-xs-8" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <p>{{username}}</p>
+                <span class="glyphicon glyphicon-menu-down"></span>
+              </div>
+              <ul class="dropdown-menu">
+                <li style="min-height: 10px;padding: 5px 15px 0px 15px;"><span style="color: #AAAAAA;font-size: 15px;margin-top: 30px;">{{email}}</span></li>
+                <li style="min-height: 1px;" role="separator" class="divider"></li>
+                <li (click)="logOut()" style="cursor: pointer;min-height: 10px;padding: 0px 15px 8px 15px;"><span style="font-size: 15px;">Sign Out</span></li>
+              </ul>
             </div>
+          </li>
+          <li id="bucket-li" *ngFor="let bucket of bucketlist | searchfilter:[querystring]; let i = index" [class.selected]="bucket === selectedBucket" (click)="onSelect(bucket,i)">
+            <div #bname class="view">
+              <i id="edbucket" class="fa fa-list-ul" aria-hidden="true"></i><span class="bucket-name">{{bucket.name}}</span>
+              <div *ngIf="bucket === selectedBucket" class="bucket-ops">
+                <p style="font-size: 10px">{{itemcount}}</p>
+                <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+              </div>
+            </div>
+            <input class="editbucket" [value]="bucket.name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)">
+          </li>
+        </ul>
+        <div class="no-buckets" *ngIf="nobuckets">
+          There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one
         </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 content-top">
-                    <div class="col-xs-10" style="float: none;">
-                        <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
-                    </div>
-                    <div class="col-xs-2 bucketactions" style="float: right;">
-                        <div class="editactions">
-                            <div (click)="deletetrigger()" style="cursor: pointer;" class="content">
-                                <i style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                <span>Delete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row scrollable">
-                <div class="col-md-12 col-xs-12 content-main">
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 form-group form-group-lg" id="add-item">
-                            <div class="inner-addon right-addon">
-                                <i (click)="addItem(item.value,item)" style="color: white;cursor: pointer;" class="material-icons">add</i>
-                                <input [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12 col-xs-12 items ">
-                            <ul class="col-md-12 col-xs-12 bucket-items " *ngIf="selectedBucket">
-                                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
-                                    <div #viewitem class="view" [class.completed]="bucketitem.done">
-                                        <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                        <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
-                                        <modal [animation]="animationsEnabled" (onClose)="deleteItem()" #modalconfirmitem>
-                                            <modal-header [show-close]="true">
-                                                <h4 class="modal-title">Confirm Delete</h4>
-                                            </modal-header>
-                                            <modal-body>
-                                                Are you sure you want to delete?
-                                            </modal-body>
-                                            <modal-footer>
-                                                <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                                                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">YES</button>
-                                            </modal-footer>
-                                        </modal>
-                                        <i (click)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)" style="cursor: pointer;" class="edititem fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                        <button (click)="deleteitemtrigger(bucketitem)" class="destroy"></button>
-                                    </div>
-                                    <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
-                                </li>
-                            </ul>
-                            <div class="no-items" *ngIf="noitems">
-                                There are no items to display. Add a new one.
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="!noitems" (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
-                        <div class="panel-body">
-                            <p #togglep class="noselect">SHOW COMPLETED ITEMS</p>
-                        </div>
-                    </div>
-                    <div [hidden]="!visible" class="col-md-12 col-xs-12">
-                        <ul class="col-md-12 col-xs-12 completed-items " *ngIf="selectedBucket ">
-                            <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
-                                <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
-                                    <div class="col-md-1 col-xs-2">
-                                        <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
-                                    </div>
-                                    <div class="col-md-10 col-xs-9">
-                                        <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
-                                        <p>{{bucketitem.date_updated}} by {{username}}</p>
-                                    </div>
-                                    <div class="col-md-1 col-xs-1">
-                                        <i (click)="deleteitemtrigger(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <i (click)="togglenav($event)" id="more_vert" style="cursor: pointer;padding-top: 20px;" class="material-icons md-24 blue">more_vert</i>
+        <div style="cursor: pointer;" (click)="open()" class="side-main-bottom">
+          <i class="material-icons md-24 blue">add</i>
+          <p>Create New Bucket List</p>
         </div>
+      </div>
     </div>
-    <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
-        <modal-header [show-close]="true">
-            <h4 class="modal-title">Enter Bucket Name</h4>
-        </modal-header>
-        <modal-body>
-            <input #bucketitemid type="text" (keyup.enter)="bucketname=bucketitemid.value; modal.close();" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
-        </modal-body>
-        <modal-footer>
-            <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-            <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
-        </modal-footer>
-    </modal>
-    <modal [animation]="animationsEnabled" (onClose)="deleteBucketList()" #modalconfirm>
-        <modal-header [show-close]="true">
-            <h4 class="modal-title">Confirm Delete</h4>
-        </modal-header>
-        <modal-body>
-            Are you sure you want to delete?
-        </modal-body>
-        <modal-footer>
-            <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-            <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodal.close();">YES</button>
-        </modal-footer>
-    </modal>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 content-top">
+          <div class="col-xs-10" style="float: none;">
+            <span id="title" *ngIf="selectedBucket">{{selectedBucket.name}}</span>
+          </div>
+          <div class="col-xs-2 bucketactions" style="float: right;">
+            <div class="editactions">
+              <div (click)="deletetrigger()" style="cursor: pointer;" class="content">
+                <i style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                <span>Delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row scrollable">
+        <div class="col-md-12 col-xs-12 content-main">
+          <div class="row">
+            <div class="col-md-12 col-xs-12 form-group form-group-lg" id="add-item">
+              <div class="inner-addon right-addon">
+                <i (click)="addItem(item.value,item)" style="color: white;cursor: pointer;" class="material-icons">add</i>
+                <input [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " class="form-control " placeholder="Add a Bucket Item" autofocus>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12 col-xs-12 items ">
+              <ul class="col-md-12 col-xs-12 bucket-items " *ngIf="selectedBucket">
+                <li *ngFor="let bucketitem of selectedBucket.items | undoneitems: selectedBucket.items" [class.editing]="editMode">
+                  <div #viewitem class="view" [class.completed]="bucketitem.done">
+                    <input class="toggle" type="checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
+                    <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.name}}</label>
+                    <modal [animation]="animationsEnabled" (onClose)="deleteItem()" #modalconfirmitem>
+                      <modal-header [show-close]="true">
+                        <h4 class="modal-title">Confirm Delete</h4>
+                      </modal-header>
+                      <modal-body>
+                        Are you sure you want to delete?
+                      </modal-body>
+                      <modal-footer>
+                        <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                        <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">YES</button>
+                      </modal-footer>
+                    </modal>
+                    <i (click)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)" style="cursor: pointer;" class="edititem fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    <button (click)="deleteitemtrigger(bucketitem)" class="destroy"></button>
+                  </div>
+                  <input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)">
+                </li>
+              </ul>
+              <div class="no-items" *ngIf="noitems">
+                There are no items to display. Add a new one.
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!noitems" (click)="showCompleted(togglep)" class="panel panel-default" id="showcompleted">
+            <div class="panel-body">
+              <p #togglep class="noselect">SHOW COMPLETED ITEMS</p>
+            </div>
+          </div>
+          <div [hidden]="!visible" class="col-md-12 col-xs-12">
+            <ul class="col-md-12 col-xs-12 completed-items " *ngIf="selectedBucket ">
+              <li *ngFor="let bucketitem of selectedBucket.items | doneitems: selectedBucket.items">
+                <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
+                  <div class="col-md-1 col-xs-2">
+                    <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
+                  </div>
+                  <div class="col-md-10 col-xs-9">
+                    <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                    <p>{{bucketitem.date_updated}} by {{username}}</p>
+                  </div>
+                  <div class="col-md-1 col-xs-1">
+                    <i (click)="deleteitemtrigger(bucketitem)" class="fa fa-trash-o fa-lg" aria-hidden="true" style="float: right; margin-right: 20px; color:#8B8273; margin-top: 15px;cursor: pointer;"></i>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">Enter Bucket Name</h4>
+    </modal-header>
+    <modal-body>
+      <input #bucketitemid type="text" (keyup.enter)="bucketname=bucketitemid.value; modal.close();" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
+    </modal-body>
+    <modal-footer>
+      <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
+    </modal-footer>
+  </modal>
+  <modal [animation]="animationsEnabled" (onClose)="deleteBucketList()" #modalconfirm>
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">Confirm Delete</h4>
+    </modal-header>
+    <modal-body>
+      Are you sure you want to delete?
+    </modal-body>
+    <modal-footer>
+      <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodal.close();">YES</button>
+    </modal-footer>
+  </modal>
 </div>

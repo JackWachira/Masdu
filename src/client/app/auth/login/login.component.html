@@ -1,55 +1,54 @@
 <div id="loginbox" class="mainbox col-sm-6 col-sm-pull-6 col-xs-12">
-    <div [hidden]="register_success" class="alert alert-info fade in">
-        <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
+  <div [hidden]="register_success" class="alert alert-info fade in">
+    <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Now login to access your account
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <div class="panel-title">Sign In</div>
     </div>
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <div class="panel-title">Sign In</div>
+    <div style="padding-top:30px" class="panel-body">
+      <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+      <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div [hidden]="correct" id="loginalert" class="alert alert-danger">
+          <div *ngFor='let error of arrayOfKeys'>
+            <p>{{userobj[error]}}</p>
+          </div>
+          <span></span>
         </div>
-        <div style="padding-top:30px" class="panel-body">
-            <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-            <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                <div [hidden]="correct" id="loginalert" class="alert alert-danger">
-                    <div *ngFor='let error of arrayOfKeys'>
-                        <p>{{userobj[error]}}</p>
-                    </div>
-                    <span></span>
-                </div>
-                <div style="margin-bottom: 25px">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="email" class="form-control" name="username" value="" placeholder="username or email" required [(ngModel)]="model.email" ngControl="email" #email="ngForm">
-                    </div>
-                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                        Email is required
-                    </div>
-                </div>
-                <div style="margin-bottom: 25px">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password" required [(ngModel)]="model.password" ngControl="password" #password="ngForm">
-                    </div>
-                    <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-                        Password is required
-                    </div>
-                </div>
-                <div style="margin-top:10px" class="form-group">
-                    <!-- Button -->
-                    <div class="col-sm-12 controls">
-                        <button type="submit" class="btn btn-block btn-success" [disabled]="!loginForm.form.valid">Login</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12 control">
-                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
-                            Don't have an account!
-                            <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">
-                               Sign Up Here
-                           </a>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div style="margin-bottom: 25px">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="login-username" type="email" class="form-control" name="username" value="" placeholder="Email" required [(ngModel)]="model.email" ngControl="email" #email="ngForm">
+          </div>
+          <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            Email is required
+          </div>
         </div>
+        <div style="margin-bottom: 25px">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="login-password" type="password" class="form-control" name="password" placeholder="Password" required [(ngModel)]="model.password" ngControl="password" #password="ngForm">
+          </div>
+          <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+        </div>
+        <div style="margin-top:10px" class="form-group">
+          <div class="col-sm-12 controls">
+            <button type="submit" class="btn btn-block btn-success" [disabled]="!loginForm.form.valid">Login</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-12 control">
+            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+              Don't have an account!
+              <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">
+                Sign Up Here
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
