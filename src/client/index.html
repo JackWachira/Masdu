@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        Masdu
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- inject:css -->
+    <!-- endinject -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/manifest.json">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://use.fontawesome.com/1fc3dc345d.js"></script>
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="/assets/icon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#00bcd4">
+    <link rel="stylesheet" href="/assets/css/style.css"></link>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.js"></script>
+    <link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+    <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script>
+</head>
+
+<body>
+    <app>Loading...</app>
+    <script>
+    // function.name (all IE)
+    // Remove once https://github.com/angular/angular/issues/6501 is fixed.
+    /*! @source http://stackoverflow.com/questions/6903762/function-name-not-supported-in-ie*/
+    if (!Object.hasOwnProperty('name')) {
+        Object.defineProperty(Function.prototype, 'name', {
+            get: function() {
+                var matches = this.toString().match(/^\s*function\s*((?![0-9])[a-zA-Z0-9_$]*)\s*\(/);
+                var name = matches && matches.length > 1 ? matches[1] : "";
+                // For better performance only parse once, and then cache the
+                // result through a new accessor for repeated access.
+                Object.defineProperty(this, 'name', {
+                    value: name
+                });
+                return name;
+            }
+        });
+    }
+    </script>
+    <script>
+    // Fixes undefined module function in SystemJS bundle
+    function module() {}
+    </script>
+    <!-- shims:js -->
+    <!-- endinject -->
+    <% if (ENV === 'dev') { %>
+        <script>
+        System.config(<%=
+      JSON.stringify(SYSTEM_CONFIG, null, 2)
+    %>)
+        </script>
+        <% } %>
+            <!-- libs:js -->
+            <!-- endinject -->
+            <!-- inject:js -->
+            <!-- endinject -->
+            <% if (ENV === 'dev') { %>
+                <script>
+                System.import('<%= BOOTSTRAP_MODULE %>')
+                    .catch(function(e) {
+                        console.error(e,
+                            'Report this error at https://github.com/mgechev/angular2-seed/issues');
+                    });
+                </script>
+                <% } %>
+</body>
+
+</html>

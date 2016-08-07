@@ -1,0 +1,87 @@
+#size-banner {
+  padding-top: 60px;
+}
+
+header .display-2 {
+  font-size: 350%;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.banner-tag-line {
+  font-size: 150%;
+  line-height: 1.4;
+  font-weight: 300;
+  font-family: 'Bad Script', cursive;
+}
+
+.btn-banner {
+  font-weight: 600;
+  color: #002157;
+  border-color: #002157;
+  margin-right: 10px;
+}
+
+.main {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+.background-image {
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed!important;
+  overflow: hidden;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.login {
+  float: left;
+}
+
+blockquote {
+  margin-top: 20px;
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-bottom: -30px;
+  position: relative;
+  max-width: 400px;
+  margin-left: 100px;
+  text-shadow: 2px 2px #ffffff;
+}
+
+blockquote h3 {
+  font-size: 21px;
+}
+
+blockquote cite {
+  color: #999999;
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
+
+.alert {
+  width: 300px;
+}
+
+@media(max-width:440px) {
+  #logo-img {
+    margin-top: 0;
+    vertical-align: top;
+  }
+  #quote {
+    display: none;
+  }
+  #size-banner {
+    padding-top: 0px;
+  }
+}
